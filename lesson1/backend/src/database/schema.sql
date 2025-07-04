@@ -1,5 +1,6 @@
 -- Schema para Sistema de Rede de Produtos
 -- Criado para PostgreSQL
+-- @language postgresql
 
 -- Tabela de Usuários/Vendedores
 CREATE TABLE IF NOT EXISTS users (
