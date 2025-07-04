@@ -5,6 +5,10 @@ require('dotenv').config();
 // Importar conexão do banco
 const { testConnection, query } = require('./database/connection');
 
+// Importar rotas
+const categoryRoutes = require('./routes/categoryRoutes');
+const productRoutes = require('./routes/productRoutes');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -46,54 +50,9 @@ app.get('/test-db', async (req, res) => {
     }
 });
 
-// Rota para listar categorias (exemplo)
-app.get('/api/categories', async (req, res) => {
-    try {
-        const result = await query('SELECT * FROM categories WHERE is_active = true ORDER BY name');
-        res.json({
-            status: 'success',
-            data: result.rows
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: 'error',
-            message: 'Erro ao buscar categorias',
-            error: error.message
-        });
-    }
-});
-
-// Rota para listar produtos (exemplo)
-app.get('/api/products', async (req, res) => {
-    try {
-        const result = await query(`
-            SELECT 
-                p.id,
-                p.name,
-                p.description,
-                p.price,
-                p.stock_quantity,
-                p.image_url,
-                c.name as category_name,
-                u.name as seller_name
-            FROM products p
-            LEFT JOIN categories c ON p.category_id = c.id
-            LEFT JOIN users u ON p.user_id = u.id
-            WHERE p.is_active = true
-            ORDER BY p.created_at DESC
-        `);
-        res.json({
-            status: 'success',
-            data: result.rows
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: 'error',
-            message: 'Erro ao buscar produtos',
-            error: error.message
-        });
-    }
-});
+// Usar as rotas organizadas
+app.use('/api/categories', categoryRoutes);
+app.use('/api/products', productRoutes);
 
 // Middleware para rotas não encontradas
 app.use('*', (req, res) => {
