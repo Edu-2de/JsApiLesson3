@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import pool from './database/connection';
+import { setupDatabase, testConnection } from './database/setup';
 
 dotenv.config();
 
@@ -30,11 +31,37 @@ app.get('/test-db', async (req, res) => {
   } catch (error) {
     res.status(500).json({ 
       message: 'Database connection failed', 
-      error: error.message 
+      error: error instanceof Error ? error.message : String(error)
     });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+// Rota para setup do banco (usar apenas em desenvolvimento)
+app.post('/setup-db', async (req, res) => {
+  try {
+    await setupDatabase();
+    res.json({ message: 'Database setup completed successfully!' });
+  } catch (error) {
+    res.status(500).json({ 
+      message: 'Database setup failed', 
+      error: error instanceof Error ? error.message : String(error)
+    });
+  }
 });
+
+// Inicializar servidor
+async function startServer() {
+  try {
+    // Testar conexão com o banco
+    await testConnection();
+    
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  }
+}
+
+startServer();
