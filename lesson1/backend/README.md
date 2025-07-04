@@ -12,7 +12,7 @@ Backend desenvolvido em TypeScript com Express e PostgreSQL para gerenciar produ
 
 ## 📋 Pré-requisitos
 
-- Node.js 18+ 
+- Node.js 18+
 - PostgreSQL 12+
 - npm ou yarn
 
@@ -20,15 +20,18 @@ Backend desenvolvido em TypeScript com Express e PostgreSQL para gerenciar produ
 
 1. Clone o repositório
 2. Instale as dependências:
+
 ```bash
 npm install
 ```
 
 3. Configure as variáveis de ambiente:
+
    - Copie o arquivo `.env.example` para `.env`
    - Configure as variáveis de acordo com seu ambiente
 
 4. Configure o banco de dados:
+
 ```bash
 npm run db:setup
 ```
@@ -43,6 +46,7 @@ npm run db:setup
 ## 🗄️ Estrutura do Banco de Dados
 
 ### Tabela `categories`
+
 - `id` - Chave primária
 - `name` - Nome da categoria (único)
 - `description` - Descrição da categoria
@@ -50,6 +54,7 @@ npm run db:setup
 - `updated_at` - Data de atualização
 
 ### Tabela `products`
+
 - `id` - Chave primária
 - `name` - Nome do produto
 - `description` - Descrição do produto
@@ -66,9 +71,11 @@ npm run db:setup
 ### Produtos
 
 #### GET /api/products
+
 Lista todos os produtos com filtros e paginação.
 
 **Query Parameters:**
+
 - `page` - Número da página (padrão: 1)
 - `limit` - Itens por página (padrão: 10)
 - `search` - Busca por nome ou descrição
@@ -80,17 +87,21 @@ Lista todos os produtos com filtros e paginação.
 - `sort_order` - Ordem (ASC, DESC)
 
 **Exemplo:**
+
 ```
 GET /api/products?page=1&limit=10&search=smartphone&category_id=1&sort_by=price&sort_order=ASC
 ```
 
 #### GET /api/products/:id
+
 Busca um produto específico por ID.
 
 #### POST /api/products
+
 Cria um novo produto.
 
 **Body:**
+
 ```json
 {
   "name": "Smartphone Samsung Galaxy",
@@ -103,15 +114,19 @@ Cria um novo produto.
 ```
 
 #### PUT /api/products/:id
+
 Atualiza um produto existente.
 
 #### DELETE /api/products/:id
+
 Remove um produto.
 
 #### PATCH /api/products/:id/stock
+
 Atualiza o estoque de um produto.
 
 **Body:**
+
 ```json
 {
   "quantity": 10
@@ -121,18 +136,23 @@ Atualiza o estoque de um produto.
 ### Categorias
 
 #### GET /api/categories
+
 Lista todas as categorias.
 
 **Query Parameters:**
+
 - `include_product_count` - Incluir contagem de produtos (true/false)
 
 #### GET /api/categories/:id
+
 Busca uma categoria específica por ID.
 
 #### POST /api/categories
+
 Cria uma nova categoria.
 
 **Body:**
+
 ```json
 {
   "name": "Eletrônicos",
@@ -141,14 +161,17 @@ Cria uma nova categoria.
 ```
 
 #### PUT /api/categories/:id
+
 Atualiza uma categoria existente.
 
 #### DELETE /api/categories/:id
+
 Remove uma categoria (apenas se não houver produtos associados).
 
 ### Health Check
 
 #### GET /api/health
+
 Verifica se a API está funcionando.
 
 ## 🔒 Estrutura de Pastas
@@ -177,6 +200,7 @@ O servidor será executado em `http://localhost:3000` com hot-reload habilitado.
 ## 📝 Exemplo de Uso
 
 ### Criar uma categoria:
+
 ```bash
 curl -X POST http://localhost:3000/api/categories \
   -H "Content-Type: application/json" \
@@ -184,6 +208,7 @@ curl -X POST http://localhost:3000/api/categories \
 ```
 
 ### Criar um produto:
+
 ```bash
 curl -X POST http://localhost:3000/api/products \
   -H "Content-Type: application/json" \
@@ -197,6 +222,7 @@ curl -X POST http://localhost:3000/api/products \
 ```
 
 ### Listar produtos:
+
 ```bash
 curl http://localhost:3000/api/products
 ```
