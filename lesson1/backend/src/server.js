@@ -8,6 +8,7 @@ const { testConnection, query } = require('./database/connection');
 // Importar rotas
 const categoryRoutes = require('./routes/categoryRoutes');
 const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -53,6 +54,7 @@ app.get('/test-db', async (req, res) => {
 // Usar as rotas organizadas
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
 
 // Middleware para rotas não encontradas
 app.use('*', (req, res) => {

@@ -75,6 +75,78 @@ const validateProduct = (req, res, next) => {
     next();
 };
 
+// Middleware para validar dados de usuário
+const validateUser = (req, res, next) => {
+    const { name, email, password, phone, role } = req.body;
+    
+    if (!name || name.trim() === '') {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Nome é obrigatório'
+        });
+    }
+    
+    if (name.length < 2 || name.length > 100) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Nome deve ter entre 2 e 100 caracteres'
+        });
+    }
+    
+    if (!email || email.trim() === '') {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Email é obrigatório'
+        });
+    }
+    
+    // Validação básica de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Email deve ter um formato válido'
+        });
+    }
+    
+    if (password && password.length < 6) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Senha deve ter pelo menos 6 caracteres'
+        });
+    }
+    
+    if (phone && phone.length < 10) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Telefone deve ter pelo menos 10 caracteres'
+        });
+    }
+    
+    if (role && !['user', 'admin'].includes(role)) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Role deve ser "user" ou "admin"'
+        });
+    }
+    
+    next();
+};
+
+// Middleware para validar atualização de role
+const validateRole = (req, res, next) => {
+    const { role } = req.body;
+    
+    if (!role || !['user', 'admin'].includes(role)) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Role deve ser "user" ou "admin"'
+        });
+    }
+    
+    next();
+};
+
 // Middleware para validar ID como parâmetro
 const validateId = (req, res, next) => {
     const { id } = req.params;
@@ -114,5 +186,7 @@ module.exports = {
     validateCategory,
     validateProduct,
     validateId,
-    validatePagination
+    validatePagination,
+    validateUser,
+    validateRole
 };

@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
     city VARCHAR(100),
     state VARCHAR(50),
     zip_code VARCHAR(20),
+    role VARCHAR(20) DEFAULT 'user' CHECK (role IN ('user', 'admin')),
     is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -114,7 +115,7 @@ INSERT INTO categories (name, description) VALUES
 ON CONFLICT (name) DO NOTHING;
 
 -- Inserir usuário de teste
-INSERT INTO users (name, email, password, phone, city, state) VALUES 
-    ('João Silva', 'joao@email.com', 'senha123', '(11) 99999-9999', 'São Paulo', 'SP'),
-    ('Maria Santos', 'maria@email.com', 'senha456', '(11) 88888-8888', 'Rio de Janeiro', 'RJ')
+INSERT INTO users (name, email, password, phone, city, state, role) VALUES 
+    ('João Silva', 'joao@email.com', 'senha123', '(11) 99999-9999', 'São Paulo', 'SP', 'user'),
+    ('Maria Santos', 'maria@email.com', 'senha456', '(11) 88888-8888', 'Rio de Janeiro', 'RJ', 'admin')
 ON CONFLICT (email) DO NOTHING;
