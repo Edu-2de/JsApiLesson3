@@ -42,3 +42,4 @@ build/
 # Coverage de testes
 coverage/
 .nyc_output/
+
