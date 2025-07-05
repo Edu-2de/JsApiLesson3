@@ -7,6 +7,12 @@ import { setupDatabase, testConnection } from './database/setup';
 import userRoutes from './routes/userRoutes';
 import productRoutes from './routes/productRoutes';
 
+// Middlewares personalizados
+import { logger } from './middleware/logger';
+import { errorHandler } from './middleware/errorHandler';
+import { rateLimit } from './middleware/rateLimiter';
+
+
 dotenv.config();
 
 const app = express();
@@ -16,6 +22,10 @@ const PORT = process.env.PORT || 3001;
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+
+// Middlewares personalizados
+app.use(logger);
+app.use(rateLimit(100, 15 * 60 * 1000)); // 100 requests por 15 minutos
 
 // Routes
 app.use('/users', userRoutes);
@@ -49,6 +59,8 @@ app.post('/setup-db', async (req, res) => {
     });
   }
 });
+
+app.use(errorHandler);
 
 // Inicializar servidor
 async function startServer() {
