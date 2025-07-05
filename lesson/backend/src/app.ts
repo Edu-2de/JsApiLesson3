@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import pool from './database/connection';
 import { setupDatabase, testConnection } from './database/setup';
+import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
 import productRoutes from './routes/productRoutes';
 import categoryRoutes from './routes/categoryRoutes';
@@ -26,15 +27,16 @@ app.use(express.json());
 
 // Middlewares personalizados
 app.use(logger);
-app.use(rateLimit(100, 15 * 60 * 1000)); // 100 requests por 15 minutos
+app.use(rateLimit(100, 15 * 60 * 1000));
 
 // Routes
+app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/transactions', transactionRoutes);
 
-// Rota de teste do banco
+// Rotas públicas para testes
 app.get('/test-db', async (req, res) => {
   try {
     const result = await pool.query('SELECT NOW()');
@@ -50,7 +52,6 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
-// Rota para setup do banco (usar apenas em desenvolvimento)
 app.post('/setup-db', async (req, res) => {
   try {
     await setupDatabase();
@@ -63,33 +64,12 @@ app.post('/setup-db', async (req, res) => {
   }
 });
 
-// Rota para listar tabelas
-app.get('/tables', async (req, res) => {
-  try {
-    const result = await pool.query(`
-      SELECT table_name 
-      FROM information_schema.tables 
-      WHERE table_schema = 'public'
-    `);
-    res.json({ 
-      message: 'Tables found!', 
-      tables: result.rows 
-    });
-  } catch (error) {
-    res.status(500).json({ 
-      message: 'Error fetching tables', 
-      error: error instanceof Error ? error.message : String(error)
-    });
-  }
-});
-
-// Middleware de tratamento de erros (deve ser o último)
+// Middleware de tratamento de erros
 app.use(errorHandler);
 
 // Inicializar servidor
 async function startServer() {
   try {
-    // Testar conexão com o banco
     await testConnection();
     
     app.listen(PORT, () => {

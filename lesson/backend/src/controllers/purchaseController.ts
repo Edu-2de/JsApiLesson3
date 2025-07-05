@@ -1,22 +1,31 @@
 import { Request, Response } from 'express';
 import pool from '../database/connection';
 
+interface AuthRequest extends Request {
+  user?: {
+    id: number;
+    email: string;
+    role: string;
+  };
+}
+
 export class PurchaseController {
   // Realizar compra
-  static async makePurchase(req: Request, res: Response): Promise<void> {
+  static async makePurchase(req: AuthRequest, res: Response): Promise<void> {
     const client = await pool.connect();
     
     try {
       await client.query('BEGIN');
 
-      const { user_id, items } = req.body; // items = [{ product_id, quantity }]
+      const { items } = req.body; // items = [{ product_id, quantity }]
+      const user_id = req.user!.id; // Usar o usuário logado
 
-      if (!user_id || !items || !Array.isArray(items) || items.length === 0) {
-        res.status(400).json({ message: 'User ID and items array are required' });
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        res.status(400).json({ message: 'Items array is required' });
         return;
       }
 
-      // Verificar se usuário existe
+      // Verificar se usuário existe e buscar saldo
       const userResult = await client.query('SELECT id, balance FROM users WHERE id = $1', [user_id]);
       if (userResult.rows.length === 0) {
         res.status(404).json({ message: 'User not found' });

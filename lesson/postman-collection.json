@@ -1,76 +1,76 @@
 {
   "info": {
-    "name": "JsApiLesson3 - Complete",
-    "description": "Collection completa para testar a API com categorias, saldo e compras",
+    "name": "JsApiLesson3 - Auth & Authorization",
+    "description": "API completa com autenticação, autorização e roles",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
-  "item": [
+  "variable": [
     {
-      "name": "Database",
-      "item": [
-        {
-          "name": "Test Database Connection",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/test-db",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["test-db"]
-            }
-          }
-        },
-        {
-          "name": "Setup Database",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/setup-db",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["setup-db"]
-            }
-          }
-        },
-        {
-          "name": "List Tables",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/tables",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["tables"]
-            }
-          }
-        }
-      ]
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
     },
     {
-      "name": "Users",
+      "key": "user_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
       "item": [
         {
-          "name": "Get All Users",
+          "name": "Login Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('admin_token', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
           "request": {
-            "method": "GET",
-            "header": [],
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@system.com\",\n  \"password\": \"password\"\n}"
+            },
             "url": {
-              "raw": "http://localhost:3001/users",
+              "raw": "http://localhost:3001/auth/login",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3001",
-              "path": ["users"]
+              "path": ["auth", "login"]
             }
           }
         },
         {
-          "name": "Create User - João",
+          "name": "Register User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('user_token', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
           "request": {
             "method": "POST",
             "header": [
@@ -84,6 +84,104 @@
               "raw": "{\n  \"name\": \"João Silva\",\n  \"email\": \"joao@email.com\",\n  \"password\": \"123456\"\n}"
             },
             "url": {
+              "raw": "http://localhost:3001/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('user_token', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"joao@email.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Admin Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3001/auth/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["auth", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3001/auth/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["auth", "profile"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Operations",
+      "item": [
+        {
+          "name": "Admin - List All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
               "raw": "http://localhost:3001/users",
               "protocol": "http",
               "host": ["localhost"],
@@ -93,182 +191,14 @@
           }
         },
         {
-          "name": "Create User - Maria",
+          "name": "Admin - Create Product",
           "request": {
             "method": "POST",
             "header": [
               {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Maria Santos\",\n  \"email\": \"maria@email.com\",\n  \"password\": \"654321\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3001/users",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["users"]
-            }
-          }
-        },
-        {
-          "name": "Get User By ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/users/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["users", "1"]
-            }
-          }
-        },
-        {
-          "name": "Update User",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"João Silva Atualizado\",\n  \"email\": \"joao.novo@email.com\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3001/users/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["users", "1"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Categories",
-      "item": [
-        {
-          "name": "Get All Categories",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/categories",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["categories"]
-            }
-          }
-        },
-        {
-          "name": "Create Category - Games",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Games\",\n  \"description\": \"Jogos e entretenimento\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3001/categories",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["categories"]
-            }
-          }
-        },
-        {
-          "name": "Get Category By ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/categories/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["categories", "1"]
-            }
-          }
-        },
-        {
-          "name": "Get Products By Category",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/categories/1/products",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["categories", "1", "products"]
-            }
-          }
-        },
-        {
-          "name": "Update Category",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Eletrônicos Atualizado\",\n  \"description\": \"Produtos eletrônicos e gadgets\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3001/categories/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["categories", "1"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Products",
-      "item": [
-        {
-          "name": "Get All Products",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/products",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["products"]
-            }
-          }
-        },
-        {
-          "name": "Create Product - Smartphone",
-          "request": {
-            "method": "POST",
-            "header": [
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -288,33 +218,14 @@
           }
         },
         {
-          "name": "Create Product - Notebook",
+          "name": "Admin - Add Balance to User",
           "request": {
             "method": "POST",
             "header": [
               {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Notebook Dell Inspiron 15\",\n  \"description\": \"Notebook para trabalho e estudos\",\n  \"price\": 2500.00,\n  \"stock_quantity\": 10,\n  \"category_id\": 2\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3001/products",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["products"]
-            }
-          }
-        },
-        {
-          "name": "Create Product - Mouse",
-          "request": {
-            "method": "POST",
-            "header": [
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -322,128 +233,50 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Mouse Logitech MX Master 3\",\n  \"description\": \"Mouse ergonômico sem fio\",\n  \"price\": 450.00,\n  \"stock_quantity\": 20,\n  \"category_id\": 2\n}"
+              "raw": "{\n  \"user_id\": 2,\n  \"amount\": 10000.00,\n  \"description\": \"Saldo inicial\"\n}"
             },
             "url": {
-              "raw": "http://localhost:3001/products",
+              "raw": "http://localhost:3001/transactions/add-balance",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3001",
-              "path": ["products"]
+              "path": ["transactions", "add-balance"]
             }
           }
         },
         {
-          "name": "Get Product By ID",
+          "name": "Admin - Delete User",
           "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/products/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["products", "1"]
-            }
-          }
-        },
-        {
-          "name": "Search Products by Name",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/products/search?name=notebook",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["products", "search"],
-              "query": [
-                {
-                  "key": "name",
-                  "value": "notebook"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "name": "Search Products by Price Range",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/products/search?min_price=1000&max_price=3000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["products", "search"],
-              "query": [
-                {
-                  "key": "min_price",
-                  "value": "1000"
-                },
-                {
-                  "key": "max_price",
-                  "value": "3000"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "name": "Search Products in Stock",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/products/search?in_stock=true",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["products", "search"],
-              "query": [
-                {
-                  "key": "in_stock",
-                  "value": "true"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "name": "Update Product",
-          "request": {
-            "method": "PUT",
+            "method": "DELETE",
             "header": [
               {
-                "key": "Content-Type",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Smartphone Samsung Galaxy S24 Ultra\",\n  \"description\": \"Smartphone premium com câmera de 200MP e S Pen\",\n  \"price\": 4000.00,\n  \"stock_quantity\": 8,\n  \"category_id\": 1\n}"
-            },
             "url": {
-              "raw": "http://localhost:3001/products/1",
+              "raw": "http://localhost:3001/users/3",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3001",
-              "path": ["products", "1"]
+              "path": ["users", "3"]
             }
           }
         }
       ]
     },
     {
-      "name": "Balance & Transactions",
+      "name": "User Operations",
       "item": [
         {
-          "name": "Add Balance to User 1",
+          "name": "User - Make Purchase",
           "request": {
             "method": "POST",
             "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -451,59 +284,27 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"user_id\": 1,\n  \"amount\": 10000.00,\n  \"description\": \"Depósito inicial\"\n}"
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 1\n    }\n  ]\n}"
             },
             "url": {
-              "raw": "http://localhost:3001/transactions/add-balance",
+              "raw": "http://localhost:3001/transactions/purchase",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3001",
-              "path": ["transactions", "add-balance"]
+              "path": ["transactions", "purchase"]
             }
           }
         },
         {
-          "name": "Add Balance to User 2",
+          "name": "User - Get Own Balance",
           "request": {
-            "method": "POST",
+            "method": "GET",
             "header": [
               {
-                "key": "Content-Type",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"user_id\": 2,\n  \"amount\": 5000.00,\n  \"description\": \"Saldo inicial\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3001/transactions/add-balance",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["transactions", "add-balance"]
-            }
-          }
-        },
-        {
-          "name": "Get User 1 Balance",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/transactions/balance/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["transactions", "balance", "1"]
-            }
-          }
-        },
-        {
-          "name": "Get User 2 Balance",
-          "request": {
-            "method": "GET",
-            "header": [],
             "url": {
               "raw": "http://localhost:3001/transactions/balance/2",
               "protocol": "http",
@@ -514,135 +315,15 @@
           }
         },
         {
-          "name": "Get User 1 Transactions",
+          "name": "User - Get Own Orders",
           "request": {
             "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/transactions/transactions/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["transactions", "transactions", "1"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Purchases",
-      "item": [
-        {
-          "name": "Purchase - User 1 Buy Smartphone",
-          "request": {
-            "method": "POST",
             "header": [
               {
-                "key": "Content-Type",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"user_id\": 1,\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 1\n    }\n  ]\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3001/transactions/purchase",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["transactions", "purchase"]
-            }
-          }
-        },
-        {
-          "name": "Purchase - User 2 Buy Multiple Items",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"user_id\": 2,\n  \"items\": [\n    {\n      \"product_id\": 2,\n      \"quantity\": 1\n    },\n    {\n      \"product_id\": 3,\n      \"quantity\": 2\n    }\n  ]\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3001/transactions/purchase",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["transactions", "purchase"]
-            }
-          }
-        },
-        {
-          "name": "Purchase - Insufficient Balance",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"user_id\": 2,\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 10\n    }\n  ]\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3001/transactions/purchase",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["transactions", "purchase"]
-            }
-          }
-        },
-        {
-          "name": "Purchase - Insufficient Stock",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"user_id\": 1,\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 100\n    }\n  ]\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3001/transactions/purchase",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["transactions", "purchase"]
-            }
-          }
-        },
-        {
-          "name": "Get User 1 Orders",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/transactions/orders/1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["transactions", "orders", "1"]
-            }
-          }
-        },
-        {
-          "name": "Get User 2 Orders",
-          "request": {
-            "method": "GET",
-            "header": [],
             "url": {
               "raw": "http://localhost:3001/transactions/orders/2",
               "protocol": "http",
@@ -655,22 +336,18 @@
       ]
     },
     {
-      "name": "Validation Tests",
+      "name": "Authorization Tests",
       "item": [
         {
-          "name": "Create User - Invalid Email",
+          "name": "User tries to list all users (should fail)",
           "request": {
-            "method": "POST",
+            "method": "GET",
             "header": [
               {
-                "key": "Content-Type",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"email-invalido\",\n  \"password\": \"123456\"\n}"
-            },
             "url": {
               "raw": "http://localhost:3001/users",
               "protocol": "http",
@@ -681,10 +358,14 @@
           }
         },
         {
-          "name": "Create User - Short Password",
+          "name": "User tries to create product (should fail)",
           "request": {
             "method": "POST",
             "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -692,30 +373,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@email.com\",\n  \"password\": \"123\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3001/users",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["users"]
-            }
-          }
-        },
-        {
-          "name": "Create Product - Invalid Price",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Test Product\",\n  \"description\": \"Test description\",\n  \"price\": -100,\n  \"stock_quantity\": 10\n}"
+              "raw": "{\n  \"name\": \"Test Product\",\n  \"price\": 100.00,\n  \"stock_quantity\": 10\n}"
             },
             "url": {
               "raw": "http://localhost:3001/products",
@@ -727,21 +385,40 @@
           }
         },
         {
-          "name": "Get Invalid User ID",
+          "name": "User tries to access other user's data (should fail)",
           "request": {
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
             "url": {
-              "raw": "http://localhost:3001/users/abc",
+              "raw": "http://localhost:3001/transactions/balance/1",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3001",
-              "path": ["users", "abc"]
+              "path": ["transactions", "balance", "1"]
             }
           }
         },
         {
-          "name": "Add Balance - Invalid Amount",
+          "name": "No token provided (should fail)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Purchase without login (should fail)",
           "request": {
             "method": "POST",
             "header": [
@@ -752,14 +429,67 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"user_id\": 1,\n  \"amount\": -100,\n  \"description\": \"Invalid amount\"\n}"
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 1\n    }\n  ]\n}"
             },
             "url": {
-              "raw": "http://localhost:3001/transactions/add-balance",
+              "raw": "http://localhost:3001/transactions/purchase",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3001",
-              "path": ["transactions", "add-balance"]
+              "path": ["transactions", "purchase"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public Routes",
+      "item": [
+        {
+          "name": "List Products (public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "List Categories (public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/categories",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Search Products (public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/products/search?name=smartphone",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["products", "search"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "smartphone"
+                }
+              ]
             }
           }
         }
