@@ -7,10 +7,17 @@ CREATE TABLE IF NOT EXISTS users (
   name VARCHAR(100) NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
+  role VARCHAR(20) DEFAULT 'user' CHECK (role IN ('admin', 'user')),
   balance DECIMAL(10,2) DEFAULT 0.00,
+  is_active BOOLEAN DEFAULT true,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Inserir usuário admin padrão
+INSERT INTO users (name, email, password_hash, role, balance) VALUES 
+('Admin', 'admin@system.com', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 10000.00)
+ON CONFLICT (email) DO NOTHING;
 
 -- Tabela de categorias
 CREATE TABLE IF NOT EXISTS categories (
