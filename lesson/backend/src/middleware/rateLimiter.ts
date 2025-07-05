@@ -10,7 +10,7 @@ interface RateLimitStore {
 const store: RateLimitStore = {};
 
 export const rateLimit = (maxRequests: number = 100, windowMs: number = 15 * 60 * 1000) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
     const ip = req.ip || req.connection.remoteAddress || 'unknown';
     const now = Date.now();
 
@@ -31,10 +31,11 @@ export const rateLimit = (maxRequests: number = 100, windowMs: number = 15 * 60 
 
     // Verificar se excedeu o limite
     if (store[ip].count > maxRequests) {
-      return res.status(429).json({
+      res.status(429).json({
         message: 'Too many requests',
         error: `Rate limit exceeded. Try again in ${Math.ceil((store[ip].resetTime - now) / 1000)} seconds`
       });
+      return;
     }
 
     // Adicionar headers informativos

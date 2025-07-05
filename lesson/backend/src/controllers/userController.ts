@@ -3,7 +3,7 @@ import pool from '../database/connection';
 
 export class UserController {
   // Listar todos os usuários
-  static async getAllUsers(req: Request, res: Response) {
+  static async getAllUsers(req: Request, res: Response): Promise<void> {
     try {
       const result = await pool.query('SELECT id, name, email, created_at FROM users ORDER BY created_at DESC');
       res.json({
@@ -19,13 +19,14 @@ export class UserController {
   }
 
   // Buscar usuário por ID
-  static async getUserById(req: Request, res: Response) {
+  static async getUserById(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
       const result = await pool.query('SELECT id, name, email, created_at FROM users WHERE id = $1', [id]);
       
       if (result.rows.length === 0) {
-        return res.status(404).json({ message: 'User not found' });
+        res.status(404).json({ message: 'User not found' });
+        return;
       }
 
       res.json({
@@ -41,19 +42,21 @@ export class UserController {
   }
 
   // Criar novo usuário
-  static async createUser(req: Request, res: Response) {
+  static async createUser(req: Request, res: Response): Promise<void> {
     try {
       const { name, email, password } = req.body;
 
       // Validação básica
       if (!name || !email || !password) {
-        return res.status(400).json({ message: 'Name, email and password are required' });
+        res.status(400).json({ message: 'Name, email and password are required' });
+        return;
       }
 
       // Verificar se email já existe
       const existingUser = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
       if (existingUser.rows.length > 0) {
-        return res.status(400).json({ message: 'Email already exists' });
+        res.status(400).json({ message: 'Email already exists' });
+        return;
       }
 
       // Inserir usuário (sem hash da senha por enquanto)
@@ -75,7 +78,7 @@ export class UserController {
   }
 
   // Atualizar usuário
-  static async updateUser(req: Request, res: Response) {
+  static async updateUser(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
       const { name, email } = req.body;
@@ -83,7 +86,8 @@ export class UserController {
       // Verificar se usuário existe
       const existingUser = await pool.query('SELECT id FROM users WHERE id = $1', [id]);
       if (existingUser.rows.length === 0) {
-        return res.status(404).json({ message: 'User not found' });
+        res.status(404).json({ message: 'User not found' });
+        return;
       }
 
       // Atualizar usuário
@@ -105,14 +109,15 @@ export class UserController {
   }
 
   // Deletar usuário
-  static async deleteUser(req: Request, res: Response) {
+  static async deleteUser(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
 
       // Verificar se usuário existe
       const existingUser = await pool.query('SELECT id FROM users WHERE id = $1', [id]);
       if (existingUser.rows.length === 0) {
-        return res.status(404).json({ message: 'User not found' });
+        res.status(404).json({ message: 'User not found' });
+        return;
       }
 
       // Deletar usuário

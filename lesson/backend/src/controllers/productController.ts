@@ -3,7 +3,7 @@ import pool from '../database/connection';
 
 export class ProductController {
   // Listar todos os produtos
-  static async getAllProducts(req: Request, res: Response) {
+  static async getAllProducts(req: Request, res: Response): Promise<void> {
     try {
       const result = await pool.query('SELECT * FROM products ORDER BY created_at DESC');
       res.json({
@@ -19,13 +19,14 @@ export class ProductController {
   }
 
   // Buscar produto por ID
-  static async getProductById(req: Request, res: Response) {
+  static async getProductById(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
       const result = await pool.query('SELECT * FROM products WHERE id = $1', [id]);
       
       if (result.rows.length === 0) {
-        return res.status(404).json({ message: 'Product not found' });
+        res.status(404).json({ message: 'Product not found' });
+        return;
       }
 
       res.json({
@@ -41,18 +42,20 @@ export class ProductController {
   }
 
   // Criar novo produto
-  static async createProduct(req: Request, res: Response) {
+  static async createProduct(req: Request, res: Response): Promise<void> {
     try {
       const { name, description, price, stock_quantity } = req.body;
 
       // Validação básica
       if (!name || !price) {
-        return res.status(400).json({ message: 'Name and price are required' });
+        res.status(400).json({ message: 'Name and price are required' });
+        return;
       }
 
       // Validar se o preço é um número válido
       if (isNaN(price) || price <= 0) {
-        return res.status(400).json({ message: 'Price must be a valid positive number' });
+        res.status(400).json({ message: 'Price must be a valid positive number' });
+        return;
       }
 
       // Inserir produto
@@ -74,7 +77,7 @@ export class ProductController {
   }
 
   // Atualizar produto
-  static async updateProduct(req: Request, res: Response) {
+  static async updateProduct(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
       const { name, description, price, stock_quantity } = req.body;
@@ -82,12 +85,14 @@ export class ProductController {
       // Verificar se produto existe
       const existingProduct = await pool.query('SELECT id FROM products WHERE id = $1', [id]);
       if (existingProduct.rows.length === 0) {
-        return res.status(404).json({ message: 'Product not found' });
+        res.status(404).json({ message: 'Product not found' });
+        return;
       }
 
       // Validar preço se fornecido
       if (price && (isNaN(price) || price <= 0)) {
-        return res.status(400).json({ message: 'Price must be a valid positive number' });
+        res.status(400).json({ message: 'Price must be a valid positive number' });
+        return;
       }
 
       // Atualizar produto
@@ -109,14 +114,15 @@ export class ProductController {
   }
 
   // Deletar produto
-  static async deleteProduct(req: Request, res: Response) {
+  static async deleteProduct(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
 
       // Verificar se produto existe
       const existingProduct = await pool.query('SELECT id FROM products WHERE id = $1', [id]);
       if (existingProduct.rows.length === 0) {
-        return res.status(404).json({ message: 'Product not found' });
+        res.status(404).json({ message: 'Product not found' });
+        return;
       }
 
       // Deletar produto
@@ -134,7 +140,7 @@ export class ProductController {
   }
 
   // Buscar produtos por filtros
-  static async searchProducts(req: Request, res: Response) {
+  static async searchProducts(req: Request, res: Response): Promise<void> {
     try {
       const { name, min_price, max_price, in_stock } = req.query;
 

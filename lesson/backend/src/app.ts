@@ -12,7 +12,6 @@ import { logger } from './middleware/logger';
 import { errorHandler } from './middleware/errorHandler';
 import { rateLimit } from './middleware/rateLimiter';
 
-
 dotenv.config();
 
 const app = express();
@@ -60,6 +59,27 @@ app.post('/setup-db', async (req, res) => {
   }
 });
 
+// Rota para listar tabelas
+app.get('/tables', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT table_name 
+      FROM information_schema.tables 
+      WHERE table_schema = 'public'
+    `);
+    res.json({ 
+      message: 'Tables found!', 
+      tables: result.rows 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      message: 'Error fetching tables', 
+      error: error instanceof Error ? error.message : String(error)
+    });
+  }
+});
+
+// Middleware de tratamento de erros (deve ser o último)
 app.use(errorHandler);
 
 // Inicializar servidor
