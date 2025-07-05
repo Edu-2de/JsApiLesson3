@@ -1,0 +1,1890 @@
+{
+  "info": {
+    "name": "JsApiLesson3 - Complete API Testing",
+    "description": "Collection completa para testar toda a API com autenticação, autorização, compras e validações",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user2_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "base_url",
+      "value": "http://localhost:3001",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔧 Database Setup",
+      "item": [
+        {
+          "name": "Test Database Connection",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/test-db",
+              "host": ["{{base_url}}"],
+              "path": ["test-db"]
+            }
+          }
+        },
+        {
+          "name": "Setup Database Schema",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/setup-db",
+              "host": ["{{base_url}}"],
+              "path": ["setup-db"]
+            }
+          }
+        },
+        {
+          "name": "List All Tables",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tables",
+              "host": ["{{base_url}}"],
+              "path": ["tables"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔐 Authentication",
+      "item": [
+        {
+          "name": "Login Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('admin_token', response.token);",
+                  "    console.log('Admin token saved:', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@system.com\",\n  \"password\": \"password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Register User 1 - João",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('user_token', response.token);",
+                  "    console.log('User token saved:', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"João Silva\",\n  \"email\": \"joao@email.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register User 2 - Maria",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('user2_token', response.token);",
+                  "    console.log('User2 token saved:', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maria Santos\",\n  \"email\": \"maria@email.com\",\n  \"password\": \"654321\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login User 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('user_token', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"joao@email.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login User 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('user2_token', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"maria@email.com\",\n  \"password\": \"654321\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Admin Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/profile",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/profile",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Login with Invalid Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"invalid@email.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login with Wrong Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"joao@email.com\",\n  \"password\": \"wrongpassword\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "👥 User Management",
+      "item": [
+        {
+          "name": "Admin - List All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/2",
+              "host": ["{{base_url}}"],
+              "path": ["users", "2"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Pedro Oliveira\",\n  \"email\": \"pedro@email.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Pedro Oliveira Silva\",\n  \"email\": \"pedro.silva@email.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/4",
+              "host": ["{{base_url}}"],
+              "path": ["users", "4"]
+            }
+          }
+        },
+        {
+          "name": "User - Get Own Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/2",
+              "host": ["{{base_url}}"],
+              "path": ["users", "2"]
+            }
+          }
+        },
+        {
+          "name": "User - Update Own Data",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"João Silva Santos\",\n  \"email\": \"joao.santos@email.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/2",
+              "host": ["{{base_url}}"],
+              "path": ["users", "2"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/4",
+              "host": ["{{base_url}}"],
+              "path": ["users", "4"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🏷️ Categories",
+      "item": [
+        {
+          "name": "Get All Categories (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Get Category by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories/1",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Games\",\n  \"description\": \"Jogos e entretenimento digital\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Games & Entretenimento\",\n  \"description\": \"Jogos, entretenimento e diversão digital\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/categories/6",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "6"]
+            }
+          }
+        },
+        {
+          "name": "Get Products by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories/1/products",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "1", "products"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/categories/6",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "6"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📦 Products",
+      "item": [
+        {
+          "name": "Get All Products (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["products", "1"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Create Smartphone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Smartphone Samsung Galaxy S24 Ultra\",\n  \"description\": \"Smartphone premium com câmera de 200MP, S Pen e 5G\",\n  \"price\": 4500.00,\n  \"stock_quantity\": 8,\n  \"category_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Create Notebook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Notebook Dell Inspiron 15 3000\",\n  \"description\": \"Notebook para estudos e trabalho com Intel Core i5\",\n  \"price\": 2800.00,\n  \"stock_quantity\": 12,\n  \"category_id\": 2\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Create Mouse",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mouse Logitech MX Master 3S\",\n  \"description\": \"Mouse ergonômico sem fio com sensor de alta precisão\",\n  \"price\": 650.00,\n  \"stock_quantity\": 25,\n  \"category_id\": 2\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Create Headphone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Headphone Sony WH-1000XM5\",\n  \"description\": \"Headphone com cancelamento de ruído ativo\",\n  \"price\": 1200.00,\n  \"stock_quantity\": 15,\n  \"category_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Create Keyboard",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Teclado Mecânico Corsair K95 RGB\",\n  \"description\": \"Teclado mecânico gaming com iluminação RGB\",\n  \"price\": 950.00,\n  \"stock_quantity\": 10,\n  \"category_id\": 2\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Smartphone Samsung Galaxy S24 Ultra 512GB\",\n  \"description\": \"Smartphone premium com câmera de 200MP, S Pen, 5G e 512GB\",\n  \"price\": 4800.00,\n  \"stock_quantity\": 6,\n  \"category_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["products", "1"]
+            }
+          }
+        },
+        {
+          "name": "Search Products by Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/search?name=smartphone",
+              "host": ["{{base_url}}"],
+              "path": ["products", "search"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "smartphone"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Products by Price Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/search?min_price=500&max_price=1500",
+              "host": ["{{base_url}}"],
+              "path": ["products", "search"],
+              "query": [
+                {
+                  "key": "min_price",
+                  "value": "500"
+                },
+                {
+                  "key": "max_price",
+                  "value": "1500"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Products in Stock",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/search?in_stock=true",
+              "host": ["{{base_url}}"],
+              "path": ["products", "search"],
+              "query": [
+                {
+                  "key": "in_stock",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Products - Multiple Filters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/search?name=mouse&min_price=100&max_price=1000&in_stock=true",
+              "host": ["{{base_url}}"],
+              "path": ["products", "search"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "mouse"
+                },
+                {
+                  "key": "min_price",
+                  "value": "100"
+                },
+                {
+                  "key": "max_price",
+                  "value": "1000"
+                },
+                {
+                  "key": "in_stock",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin - Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/products/5",
+              "host": ["{{base_url}}"],
+              "path": ["products", "5"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "💰 Balance Management",
+      "item": [
+        {
+          "name": "Admin - Add Balance to User 1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 2,\n  \"amount\": 15000.00,\n  \"description\": \"Saldo inicial - Bônus de boas-vindas\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/add-balance",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "add-balance"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Add Balance to User 2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 3,\n  \"amount\": 8000.00,\n  \"description\": \"Saldo inicial - Promoção de cadastro\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/add-balance",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "add-balance"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Add Small Balance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 3,\n  \"amount\": 500.00,\n  \"description\": \"Bônus por indicação\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/add-balance",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "add-balance"]
+            }
+          }
+        },
+        {
+          "name": "User 1 - Get Own Balance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/balance/2",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "balance", "2"]
+            }
+          }
+        },
+        {
+          "name": "User 2 - Get Own Balance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user2_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/balance/3",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "balance", "3"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Get Any User Balance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/balance/2",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "balance", "2"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🛒 Purchases",
+      "item": [
+        {
+          "name": "User 1 - Buy Smartphone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/purchase",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "User 2 - Buy Multiple Items",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user2_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": 3,\n      \"quantity\": 2\n    },\n    {\n      \"product_id\": 4,\n      \"quantity\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/purchase",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "User 1 - Buy Notebook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": 2,\n      \"quantity\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/purchase",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "User 2 - Buy Gaming Setup",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user2_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": 3,\n      \"quantity\": 1\n    },\n    {\n      \"product_id\": 5,\n      \"quantity\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/purchase",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "User 1 - Get Own Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/orders/2",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "orders", "2"]
+            }
+          }
+        },
+        {
+          "name": "User 2 - Get Own Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user2_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/orders/3",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "orders", "3"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Get Any User Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/orders/2",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "orders", "2"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📊 Transaction History",
+      "item": [
+        {
+          "name": "User 1 - Get Own Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/transactions/2",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "transactions", "2"]
+            }
+          }
+        },
+        {
+          "name": "User 2 - Get Own Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user2_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/transactions/3",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "transactions", "3"]
+            }
+          }
+        },
+        {
+          "name": "Admin - Get Any User Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/transactions/2",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "transactions", "2"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "❌ Error Scenarios",
+      "item": [
+        {
+          "name": "Purchase - Insufficient Balance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user2_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 5\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/purchase",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "Purchase - Insufficient Stock",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 100\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/purchase",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "Purchase - Product Not Found",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": 999,\n      \"quantity\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/purchase",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "Purchase - Empty Cart",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": []\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/purchase",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "Add Balance - Negative Amount",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 2,\n  \"amount\": -100.00,\n  \"description\": \"Tentativa de valor negativo\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/add-balance",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "add-balance"]
+            }
+          }
+        },
+        {
+          "name": "Add Balance - User Not Found",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 999,\n  \"amount\": 100.00,\n  \"description\": \"Usuário inexistente\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/add-balance",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "add-balance"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔒 Authorization Tests",
+      "item": [
+        {
+          "name": "User tries to list all users (403)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "User tries to create product (403)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Unauthorized Product\",\n  \"price\": 100.00,\n  \"stock_quantity\": 10\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "User tries to delete product (403)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["products", "1"]
+            }
+          }
+        },
+        {
+          "name": "User tries to add balance (403)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 2,\n  \"amount\": 1000.00,\n  \"description\": \"Tentativa não autorizada\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/add-balance",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "add-balance"]
+            }
+          }
+        },
+        {
+          "name": "User tries to access other user's balance (403)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/balance/3",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "balance", "3"]
+            }
+          }
+        },
+        {
+          "name": "User tries to access other user's orders (403)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/transactions/orders/3",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "orders", "3"]
+            }
+          }
+        },
+        {
+          "name": "User tries to delete other user (403)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/3",
+              "host": ["{{base_url}}"],
+              "path": ["users", "3"]
+            }
+          }
+        },
+        {
+          "name": "User tries to update other user (403)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Hacked User\",\n  \"email\": \"hacked@email.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/3",
+              "host": ["{{base_url}}"],
+              "path": ["users", "3"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔓 Unauthorized Access Tests",
+      "item": [
+        {
+          "name": "No token - List users (401)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "No token - Create product (401)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Unauthorized Product\",\n  \"price\": 100.00\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "No token - Make purchase (401)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/purchase",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "Invalid token (403)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer invalid_token_here"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Expired token (403)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔍 Validation Tests",
+      "item": [
+        {
+          "name": "Register - Invalid Email Format",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"invalid-email\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register - Short Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@email.com\",\n  \"password\": \"123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register - Missing Fields",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register - Duplicate Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Another User\",\n  \"email\": \"joao@email.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Create Product - Invalid Price",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Invalid Product\",\n  \"price\": -100.00,\n  \"stock_quantity\": 10\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Create Product - Missing Name",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 100.00,\n  \"stock_quantity\": 10\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Create Product - Invalid Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Product with Invalid Category\",\n  \"price\": 100.00,\n  \"stock_quantity\": 10,\n  \"category_id\": 999\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Get User - Invalid ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/abc",
+              "host": ["{{base_url}}"],
+              "path": ["users", "abc"]
+            }
+          }
+        },
+        {
+          "name": "Get Product - Non-existent ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/999",
+              "host": ["{{base_url}}"],
+              "path": ["products", "999"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🌍 Public Access Tests",
+      "item": [
+        {
+          "name": "List Products (Anyone)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "List Categories (Anyone)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Search Products (Anyone)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/search?name=samsung&min_price=1000",
+              "host": ["{{base_url}}"],
+              "path": ["products", "search"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "samsung"
+                },
+                {
+                  "key": "min_price",
+                  "value": "1000"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Product Details (Anyone)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["products", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Category Details (Anyone)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories/1",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
