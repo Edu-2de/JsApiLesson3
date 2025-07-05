@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ProductController } from '../controllers/productController';
+import { validateProduct, validateId } from '../middleware/validation';
 
 const router = Router();
 
@@ -10,15 +11,15 @@ router.get('/', ProductController.getAllProducts);
 router.get('/search', ProductController.searchProducts);
 
 // GET /products/:id - Buscar produto por ID
-router.get('/:id', ProductController.getProductById);
+router.get('/:id', validateId, ProductController.getProductById);
 
 // POST /products - Criar novo produto
-router.post('/', ProductController.createProduct);
+router.post('/', validateProduct, ProductController.createProduct);
 
 // PUT /products/:id - Atualizar produto
-router.put('/:id', ProductController.updateProduct);
+router.put('/:id', validateId, ProductController.updateProduct);
 
 // DELETE /products/:id - Deletar produto
-router.delete('/:id', ProductController.deleteProduct);
+router.delete('/:id', validateId, ProductController.deleteProduct);
 
 export default router;

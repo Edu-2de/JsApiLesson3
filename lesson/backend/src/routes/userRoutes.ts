@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { UserController } from '../controllers/userController';
+import { validateUser, validateId } from '../middleware/validation';
 
 const router = Router();
 
@@ -7,15 +8,15 @@ const router = Router();
 router.get('/', UserController.getAllUsers);
 
 // GET /users/:id - Buscar usuário por ID
-router.get('/:id', UserController.getUserById);
+router.get('/:id', validateId, UserController.getUserById);
 
 // POST /users - Criar novo usuário
-router.post('/', UserController.createUser);
+router.post('/', validateUser, UserController.createUser);
 
 // PUT /users/:id - Atualizar usuário
-router.put('/:id', UserController.updateUser);
+router.put('/:id', validateId, UserController.updateUser);
 
 // DELETE /users/:id - Deletar usuário
-router.delete('/:id', UserController.deleteUser);
+router.delete('/:id', validateId, UserController.deleteUser);
 
 export default router;
