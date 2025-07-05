@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "JsApiLesson3",
-    "description": "Collection for testing the API",
+    "name": "JsApiLesson3 - Complete",
+    "description": "Collection completa para testar a API com categorias, saldo e compras",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -19,6 +19,20 @@
               "host": ["localhost"],
               "port": "3001",
               "path": ["test-db"]
+            }
+          }
+        },
+        {
+          "name": "Setup Database",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/setup-db",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["setup-db"]
             }
           }
         },
@@ -56,7 +70,7 @@
           }
         },
         {
-          "name": "Create User",
+          "name": "Create User - João",
           "request": {
             "method": "POST",
             "header": [
@@ -68,6 +82,29 @@
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"João Silva\",\n  \"email\": \"joao@email.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Create User - Maria",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maria Santos\",\n  \"email\": \"maria@email.com\",\n  \"password\": \"654321\"\n}"
             },
             "url": {
               "raw": "http://localhost:3001/users",
@@ -114,18 +151,97 @@
               "path": ["users", "1"]
             }
           }
-        },
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
         {
-          "name": "Delete User",
+          "name": "Get All Categories",
           "request": {
-            "method": "DELETE",
+            "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/users/1",
+              "raw": "http://localhost:3001/categories",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3001",
-              "path": ["users", "1"]
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Create Category - Games",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Games\",\n  \"description\": \"Jogos e entretenimento\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/categories",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Get Category By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/categories/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["categories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Products By Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/categories/1/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["categories", "1", "products"]
+            }
+          }
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Eletrônicos Atualizado\",\n  \"description\": \"Produtos eletrônicos e gadgets\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/categories/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["categories", "1"]
             }
           }
         }
@@ -149,7 +265,7 @@
           }
         },
         {
-          "name": "Create Product",
+          "name": "Create Product - Smartphone",
           "request": {
             "method": "POST",
             "header": [
@@ -160,7 +276,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Notebook Dell\",\n  \"description\": \"Notebook Dell Inspiron 15\",\n  \"price\": 2500.00,\n  \"stock_quantity\": 10\n}"
+              "raw": "{\n  \"name\": \"Smartphone Samsung Galaxy S24\",\n  \"description\": \"Smartphone premium com câmera de 200MP\",\n  \"price\": 3500.00,\n  \"stock_quantity\": 5,\n  \"category_id\": 1\n}"
             },
             "url": {
               "raw": "http://localhost:3001/products",
@@ -172,12 +288,72 @@
           }
         },
         {
-          "name": "Search Products",
+          "name": "Create Product - Notebook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Notebook Dell Inspiron 15\",\n  \"description\": \"Notebook para trabalho e estudos\",\n  \"price\": 2500.00,\n  \"stock_quantity\": 10,\n  \"category_id\": 2\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Create Product - Mouse",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mouse Logitech MX Master 3\",\n  \"description\": \"Mouse ergonômico sem fio\",\n  \"price\": 450.00,\n  \"stock_quantity\": 20,\n  \"category_id\": 2\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Get Product By ID",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/products/search?name=notebook&min_price=1000",
+              "raw": "http://localhost:3001/products/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["products", "1"]
+            }
+          }
+        },
+        {
+          "name": "Search Products by Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/products/search?name=notebook",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3001",
@@ -186,12 +362,404 @@
                 {
                   "key": "name",
                   "value": "notebook"
-                },
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Products by Price Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/products/search?min_price=1000&max_price=3000",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["products", "search"],
+              "query": [
                 {
                   "key": "min_price",
                   "value": "1000"
+                },
+                {
+                  "key": "max_price",
+                  "value": "3000"
                 }
               ]
+            }
+          }
+        },
+        {
+          "name": "Search Products in Stock",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/products/search?in_stock=true",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["products", "search"],
+              "query": [
+                {
+                  "key": "in_stock",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Smartphone Samsung Galaxy S24 Ultra\",\n  \"description\": \"Smartphone premium com câmera de 200MP e S Pen\",\n  \"price\": 4000.00,\n  \"stock_quantity\": 8,\n  \"category_id\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/products/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["products", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Balance & Transactions",
+      "item": [
+        {
+          "name": "Add Balance to User 1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 1,\n  \"amount\": 10000.00,\n  \"description\": \"Depósito inicial\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/transactions/add-balance",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "add-balance"]
+            }
+          }
+        },
+        {
+          "name": "Add Balance to User 2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 2,\n  \"amount\": 5000.00,\n  \"description\": \"Saldo inicial\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/transactions/add-balance",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "add-balance"]
+            }
+          }
+        },
+        {
+          "name": "Get User 1 Balance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/transactions/balance/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "balance", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get User 2 Balance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/transactions/balance/2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "balance", "2"]
+            }
+          }
+        },
+        {
+          "name": "Get User 1 Transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/transactions/transactions/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "transactions", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Purchases",
+      "item": [
+        {
+          "name": "Purchase - User 1 Buy Smartphone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 1,\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/transactions/purchase",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "Purchase - User 2 Buy Multiple Items",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 2,\n  \"items\": [\n    {\n      \"product_id\": 2,\n      \"quantity\": 1\n    },\n    {\n      \"product_id\": 3,\n      \"quantity\": 2\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/transactions/purchase",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "Purchase - Insufficient Balance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 2,\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 10\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/transactions/purchase",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "Purchase - Insufficient Stock",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 1,\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 100\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/transactions/purchase",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "purchase"]
+            }
+          }
+        },
+        {
+          "name": "Get User 1 Orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/transactions/orders/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "orders", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get User 2 Orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/transactions/orders/2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "orders", "2"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Validation Tests",
+      "item": [
+        {
+          "name": "Create User - Invalid Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"email-invalido\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Create User - Short Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@email.com\",\n  \"password\": \"123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Create Product - Invalid Price",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Product\",\n  \"description\": \"Test description\",\n  \"price\": -100,\n  \"stock_quantity\": 10\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Get Invalid User ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/users/abc",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["users", "abc"]
+            }
+          }
+        },
+        {
+          "name": "Add Balance - Invalid Amount",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 1,\n  \"amount\": -100,\n  \"description\": \"Invalid amount\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/transactions/add-balance",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["transactions", "add-balance"]
             }
           }
         }

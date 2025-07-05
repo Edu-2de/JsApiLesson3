@@ -5,7 +5,12 @@ export class ProductController {
   // Listar todos os produtos
   static async getAllProducts(req: Request, res: Response): Promise<void> {
     try {
-      const result = await pool.query('SELECT * FROM products ORDER BY created_at DESC');
+      const result = await pool.query(`
+        SELECT p.*, c.name as category_name 
+        FROM products p 
+        LEFT JOIN categories c ON p.category_id = c.id 
+        ORDER BY p.created_at DESC
+      `);
       res.json({
         message: 'Products retrieved successfully',
         products: result.rows
@@ -44,24 +49,30 @@ export class ProductController {
   // Criar novo produto
   static async createProduct(req: Request, res: Response): Promise<void> {
     try {
-      const { name, description, price, stock_quantity } = req.body;
+      const { name, description, price, stock_quantity, category_id } = req.body;
 
-      // Validação básica
       if (!name || !price) {
         res.status(400).json({ message: 'Name and price are required' });
         return;
       }
 
-      // Validar se o preço é um número válido
       if (isNaN(price) || price <= 0) {
         res.status(400).json({ message: 'Price must be a valid positive number' });
         return;
       }
 
-      // Inserir produto
+      // Verificar se categoria existe (se fornecida)
+      if (category_id) {
+        const categoryResult = await pool.query('SELECT id FROM categories WHERE id = $1', [category_id]);
+        if (categoryResult.rows.length === 0) {
+          res.status(404).json({ message: 'Category not found' });
+          return;
+        }
+      }
+
       const result = await pool.query(
-        'INSERT INTO products (name, description, price, stock_quantity) VALUES ($1, $2, $3, $4) RETURNING *',
-        [name, description || null, price, stock_quantity || 0]
+        'INSERT INTO products (name, description, price, stock_quantity, category_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [name, description || null, price, stock_quantity || 0, category_id || null]
       );
 
       res.status(201).json({

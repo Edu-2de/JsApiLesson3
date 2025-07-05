@@ -6,6 +6,8 @@ import pool from './database/connection';
 import { setupDatabase, testConnection } from './database/setup';
 import userRoutes from './routes/userRoutes';
 import productRoutes from './routes/productRoutes';
+import categoryRoutes from './routes/categoryRoutes';
+import transactionRoutes from './routes/transactionRoutes';
 
 // Middlewares personalizados
 import { logger } from './middleware/logger';
@@ -29,6 +31,8 @@ app.use(rateLimit(100, 15 * 60 * 1000)); // 100 requests por 15 minutos
 // Routes
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
+app.use('/categories', categoryRoutes);
+app.use('/transactions', transactionRoutes);
 
 // Rota de teste do banco
 app.get('/test-db', async (req, res) => {
