@@ -31,6 +31,12 @@ export default function Home() {
     fetchData();
   }, []);
 
+  // Função para garantir que o price seja número
+  const formatPrice = (price: number | string): string => {
+    const numPrice = typeof price === 'string' ? parseFloat(price) : price;
+    return numPrice.toFixed(2);
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -106,7 +112,7 @@ export default function Home() {
                 <p className="text-gray-600 mb-4 line-clamp-2">{product.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-blue-600">
-                    R$ {product.price.toFixed(2)}
+                    R$ {formatPrice(product.price)}
                   </span>
                   <div className="flex items-center space-x-2">
                     <Star className="h-4 w-4 text-yellow-400 fill-current" />

@@ -3,7 +3,7 @@ export interface User {
   name: string;
   email: string;
   role: 'admin' | 'user';
-  balance: number;
+  balance: number | string;
   created_at: string;
   updated_at: string;
 }
@@ -12,7 +12,7 @@ export interface Product {
   id: number;
   name: string;
   description: string;
-  price: number;
+  price: number | string; // Pode vir como string do backend
   stock_quantity: number;
   category_id: number;
   category_name?: string;
@@ -31,7 +31,7 @@ export interface Category {
 export interface Order {
   id: number;
   user_id: number;
-  total_amount: number;
+  total_amount: number | string;
   status: 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled';
   created_at: string;
   items: OrderItem[];
@@ -43,14 +43,14 @@ export interface OrderItem {
   product_id: number;
   product_name: string;
   quantity: number;
-  price: number;
+  price: number | string;
 }
 
 export interface Transaction {
   id: number;
   user_id: number;
   type: 'credit' | 'debit';
-  amount: number;
+  amount: number | string;
   description: string;
   order_id?: number;
   created_at: string;
