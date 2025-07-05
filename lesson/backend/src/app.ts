@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import pool from './database/connection';
 import { setupDatabase, testConnection } from './database/setup';
+import userRoutes from './routes/userRoutes';
+import productRoutes from './routes/productRoutes';
 
 dotenv.config();
 
@@ -15,10 +17,9 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-// Rota de teste
-app.get('/', (req, res) => {
-  res.json({ message: 'API is running!' });
-});
+// Routes
+app.use('/users', userRoutes);
+app.use('/products', productRoutes);
 
 // Rota de teste do banco
 app.get('/test-db', async (req, res) => {
