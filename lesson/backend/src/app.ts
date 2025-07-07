@@ -15,6 +15,7 @@ import { logger } from './middleware/logger';
 import { errorHandler } from './middleware/errorHandler';
 import { rateLimit } from './middleware/rateLimiter';
 
+// Carregar variáveis de ambiente
 dotenv.config();
 
 const app = express();
@@ -29,14 +30,16 @@ app.use(express.json());
 app.use(logger);
 app.use(rateLimit(100, 15 * 60 * 1000));
 
-// Routes
-app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
-app.use('/products', productRoutes);
-app.use('/categories', categoryRoutes);
-app.use('/transactions', transactionRoutes);
+// Rota de teste básica
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    service: 'Backend API'
+  });
+});
 
-// Rotas públicas para testes
+// Rota de teste do banco (apenas para debug)
 app.get('/test-db', async (req, res) => {
   try {
     const result = await pool.query('SELECT NOW()');
@@ -52,33 +55,41 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
-app.post('/setup-db', async (req, res) => {
-  try {
-    await setupDatabase();
-    res.json({ message: 'Database setup completed successfully!' });
-  } catch (error) {
-    res.status(500).json({ 
-      message: 'Database setup failed', 
-      error: error instanceof Error ? error.message : String(error)
-    });
-  }
-});
-
-// Middleware de tratamento de erros
-app.use(errorHandler);
-
 // Inicializar servidor
 async function startServer() {
   try {
-    await testConnection();
+    console.log('🔧 Starting server...');
     
+    // 1. Testar conexão com banco
+    await testConnection();
+    console.log('✅ Database connection successful');
+    
+    // 2. Executar setup do banco (apenas uma vez)
+    await setupDatabase();
+    console.log('✅ Database setup completed');
+    
+    // 3. Registrar rotas DEPOIS do setup
+    app.use('/auth', authRoutes);
+    app.use('/users', userRoutes);
+    app.use('/products', productRoutes);
+    app.use('/categories', categoryRoutes);
+    app.use('/transactions', transactionRoutes);
+    
+    // 4. Middleware de tratamento de erros (sempre por último)
+    app.use(errorHandler);
+    
+    // 5. Iniciar servidor
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`📍 Health check: http://localhost:${PORT}/health`);
+      console.log(`🔍 Test DB: http://localhost:${PORT}/test-db`);
     });
+    
   } catch (error) {
     console.error('❌ Failed to start server:', error);
     process.exit(1);
   }
 }
 
+// Inicializar servidor
 startServer();
