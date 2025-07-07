@@ -52,20 +52,20 @@ export const requireAdmin = (req: AuthRequest, res: Response, next: NextFunction
 };
 
 export const requireOwnerOrAdmin = (req: AuthRequest, res: Response, next: NextFunction): void => {
-  if (!req.user) {
-    res.status(401).json({ 
-      message: 'Access denied. No user information.' 
-    });
+  const userFromToken = req.user; // Vem do authenticateToken
+  const { user_id } = req.params;
+  
+  // Admin pode acessar qualquer usuário
+  if (userFromToken?.role === 'admin') {
+    next();
     return;
   }
-
-  const userId = parseInt(req.params.id || req.params.user_id);
   
-  if (req.user.role === 'admin' || req.user.id === userId) {
+  // Usuário comum só pode acessar próprios dados
+  if (userFromToken && userFromToken.id === parseInt(user_id)) {
     next();
-  } else {
-    res.status(403).json({ 
-      message: 'Access denied. You can only access your own data.' 
-    });
+    return;
   }
+  
+  res.status(403).json({ message: 'Access denied. You can only access your own data.' });
 };
