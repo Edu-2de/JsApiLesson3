@@ -5,19 +5,19 @@
   "__export_source": "insomnia.desktop.app:v2023.5.8",
   "resources": [
     {
-      "_id": "req_01",
+      "_id": "req_setup_01",
       "parentId": "fld_setup",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663600000,
+      "created": 1704663600000,
       "url": "{{ _.base_url }}/test-db",
       "name": "Test Database Connection",
-      "description": "",
+      "description": "Testa conexão com banco de dados",
       "method": "GET",
       "body": {},
       "parameters": [],
       "headers": [],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663600000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -28,19 +28,19 @@
       "_type": "request"
     },
     {
-      "_id": "req_02",
+      "_id": "req_setup_02",
       "parentId": "fld_setup",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663599000,
+      "created": 1704663599000,
       "url": "{{ _.base_url }}/health",
       "name": "Health Check",
-      "description": "",
+      "description": "Verifica se a API está funcionando",
       "method": "GET",
       "body": {},
       "parameters": [],
       "headers": [],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663599000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -51,13 +51,13 @@
       "_type": "request"
     },
     {
-      "_id": "req_03",
+      "_id": "req_auth_01",
       "parentId": "fld_auth",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663600000,
+      "created": 1704663600000,
       "url": "{{ _.base_url }}/auth/login",
-      "name": "Login Admin",
-      "description": "",
+      "name": "Login Admin (Copy Token)",
+      "description": "Login do administrador - COPIE O TOKEN PARA admin_token",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
@@ -71,7 +71,7 @@
         }
       ],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663600000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -82,13 +82,13 @@
       "_type": "request"
     },
     {
-      "_id": "req_04",
+      "_id": "req_auth_02",
       "parentId": "fld_auth",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663599000,
+      "created": 1704663599000,
       "url": "{{ _.base_url }}/auth/register",
       "name": "Register User 1 - João",
-      "description": "",
+      "description": "Registra João Silva",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
@@ -102,7 +102,7 @@
         }
       ],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663599000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -113,44 +113,13 @@
       "_type": "request"
     },
     {
-      "_id": "req_05",
+      "_id": "req_auth_03",
       "parentId": "fld_auth",
-      "modified": 1641234567890,
-      "created": 1641234567890,
-      "url": "{{ _.base_url }}/auth/register",
-      "name": "Register User 2 - Maria",
-      "description": "",
-      "method": "POST",
-      "body": {
-        "mimeType": "application/json",
-        "text": "{\n  \"name\": \"Maria Santos\",\n  \"email\": \"maria@email.com\",\n  \"password\": \"654321\"\n}"
-      },
-      "parameters": [],
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "authentication": {},
-      "metaSortKey": -1641234567890,
-      "isPrivate": false,
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "req_06",
-      "parentId": "fld_auth",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663598000,
+      "created": 1704663598000,
       "url": "{{ _.base_url }}/auth/login",
-      "name": "Login User 1",
-      "description": "",
+      "name": "Login User 1 - João (Copy Token)",
+      "description": "Login João Silva - COPIE O TOKEN PARA user_token",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
@@ -164,7 +133,7 @@
         }
       ],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663598000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -175,13 +144,44 @@
       "_type": "request"
     },
     {
-      "_id": "req_07",
+      "_id": "req_auth_04",
       "parentId": "fld_auth",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663597000,
+      "created": 1704663597000,
+      "url": "{{ _.base_url }}/auth/register",
+      "name": "Register User 2 - Maria",
+      "description": "Registra Maria Santos",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Maria Santos\",\n  \"email\": \"maria@email.com\",\n  \"password\": \"654321\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663597000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_auth_05",
+      "parentId": "fld_auth",
+      "modified": 1704663596000,
+      "created": 1704663596000,
       "url": "{{ _.base_url }}/auth/login",
-      "name": "Login User 2",
-      "description": "",
+      "name": "Login User 2 - Maria (Copy Token)",
+      "description": "Login Maria Santos - COPIE O TOKEN PARA user2_token",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
@@ -195,7 +195,7 @@
         }
       ],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663596000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -206,13 +206,13 @@
       "_type": "request"
     },
     {
-      "_id": "req_08",
+      "_id": "req_auth_06",
       "parentId": "fld_auth",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663595000,
+      "created": 1704663595000,
       "url": "{{ _.base_url }}/auth/profile",
       "name": "Get Admin Profile",
-      "description": "",
+      "description": "Perfil do administrador",
       "method": "GET",
       "body": {},
       "parameters": [],
@@ -223,7 +223,7 @@
         }
       ],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663595000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -234,13 +234,69 @@
       "_type": "request"
     },
     {
-      "_id": "req_09",
+      "_id": "req_auth_07",
+      "parentId": "fld_auth",
+      "modified": 1704663594000,
+      "created": 1704663594000,
+      "url": "{{ _.base_url }}/auth/profile",
+      "name": "Get User 1 Profile",
+      "description": "Perfil do João Silva",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663594000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_auth_08",
+      "parentId": "fld_auth",
+      "modified": 1704663593000,
+      "created": 1704663593000,
+      "url": "{{ _.base_url }}/auth/profile",
+      "name": "Get User 2 Profile",
+      "description": "Perfil da Maria Santos",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user2_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663593000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_users_01",
       "parentId": "fld_users",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663600000,
+      "created": 1704663600000,
       "url": "{{ _.base_url }}/users",
       "name": "Admin - List All Users",
-      "description": "",
+      "description": "Lista todos os usuários (admin only)",
       "method": "GET",
       "body": {},
       "parameters": [],
@@ -251,7 +307,7 @@
         }
       ],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663600000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -262,19 +318,47 @@
       "_type": "request"
     },
     {
-      "_id": "req_10",
-      "parentId": "fld_products",
-      "modified": 1641234567890,
-      "created": 1641234567890,
-      "url": "{{ _.base_url }}/products",
-      "name": "Get All Products (Public)",
-      "description": "",
+      "_id": "req_users_02",
+      "parentId": "fld_users",
+      "modified": 1704663599000,
+      "created": 1704663599000,
+      "url": "{{ _.base_url }}/users/2",
+      "name": "Admin - Get User Details",
+      "description": "Detalhes de usuário específico (admin only)",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.admin_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663599000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_categories_01",
+      "parentId": "fld_categories",
+      "modified": 1704663600000,
+      "created": 1704663600000,
+      "url": "{{ _.base_url }}/categories",
+      "name": "List All Categories (Public)",
+      "description": "Lista todas as categorias (público)",
       "method": "GET",
       "body": {},
       "parameters": [],
       "headers": [],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663600000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -285,13 +369,129 @@
       "_type": "request"
     },
     {
-      "_id": "req_11",
+      "_id": "req_categories_02",
+      "parentId": "fld_categories",
+      "modified": 1704663599000,
+      "created": 1704663599000,
+      "url": "{{ _.base_url }}/categories",
+      "name": "Admin - Create Category Electronics",
+      "description": "Cria categoria: Eletrônicos",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Eletrônicos\",\n  \"description\": \"Produtos eletrônicos e tecnologia\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.admin_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663599000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_categories_03",
+      "parentId": "fld_categories",
+      "modified": 1704663598000,
+      "created": 1704663598000,
+      "url": "{{ _.base_url }}/categories",
+      "name": "Admin - Create Category Computers",
+      "description": "Cria categoria: Computadores",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Computadores\",\n  \"description\": \"Notebooks, desktops e acessórios\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.admin_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663598000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_categories_04",
+      "parentId": "fld_categories",
+      "modified": 1704663597000,
+      "created": 1704663597000,
+      "url": "{{ _.base_url }}/categories/1",
+      "name": "Get Category Details (Public)",
+      "description": "Detalhes da categoria (público)",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1704663597000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_01",
       "parentId": "fld_products",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663600000,
+      "created": 1704663600000,
+      "url": "{{ _.base_url }}/products",
+      "name": "Get All Products (Public)",
+      "description": "Lista todos os produtos (público)",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1704663600000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_02",
+      "parentId": "fld_products",
+      "modified": 1704663599000,
+      "created": 1704663599000,
       "url": "{{ _.base_url }}/products",
       "name": "Admin - Create Smartphone",
-      "description": "",
+      "description": "Cria produto: Smartphone Galaxy S24",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
@@ -309,7 +509,7 @@
         }
       ],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663599000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -320,13 +520,261 @@
       "_type": "request"
     },
     {
-      "_id": "req_12",
+      "_id": "req_products_03",
+      "parentId": "fld_products",
+      "modified": 1704663598000,
+      "created": 1704663598000,
+      "url": "{{ _.base_url }}/products",
+      "name": "Admin - Create Notebook",
+      "description": "Cria produto: Notebook Dell",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Notebook Dell Inspiron 15 3000\",\n  \"description\": \"Notebook para estudos e trabalho com Intel Core i5\",\n  \"price\": 2800.00,\n  \"stock_quantity\": 12,\n  \"category_id\": 2\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.admin_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663598000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_04",
+      "parentId": "fld_products",
+      "modified": 1704663597000,
+      "created": 1704663597000,
+      "url": "{{ _.base_url }}/products",
+      "name": "Admin - Create iPhone",
+      "description": "Cria produto: iPhone 15 Pro",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"iPhone 15 Pro Max\",\n  \"description\": \"iPhone com chip A17 Pro, câmera 48MP e titânio\",\n  \"price\": 6500.00,\n  \"stock_quantity\": 5,\n  \"category_id\": 1\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.admin_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663597000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_05",
+      "parentId": "fld_products",
+      "modified": 1704663596000,
+      "created": 1704663596000,
+      "url": "{{ _.base_url }}/products/1",
+      "name": "Get Product Details (Public)",
+      "description": "Detalhes do produto (público)",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1704663596000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_06",
+      "parentId": "fld_products",
+      "modified": 1704663595000,
+      "created": 1704663595000,
+      "url": "{{ _.base_url }}/products/search",
+      "name": "Search Products (Public)",
+      "description": "Busca produtos com filtros",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "name",
+          "value": "smartphone"
+        },
+        {
+          "name": "min_price",
+          "value": "1000"
+        },
+        {
+          "name": "max_price",
+          "value": "5000"
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1704663595000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_07",
+      "parentId": "fld_products",
+      "modified": 1704663594000,
+      "created": 1704663594000,
+      "url": "{{ _.base_url }}/products/1",
+      "name": "Admin - Update Product",
+      "description": "Atualiza produto existente",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Smartphone Samsung Galaxy S24 Ultra - Atualizado\",\n  \"description\": \"Smartphone premium com câmera de 200MP, S Pen e 5G - Versão atualizada\",\n  \"price\": 4200.00,\n  \"stock_quantity\": 15\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.admin_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663594000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_balance_01",
       "parentId": "fld_balance",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663600000,
+      "created": 1704663600000,
+      "url": "{{ _.base_url }}/transactions/balance/2",
+      "name": "User 1 - Check Own Balance",
+      "description": "João consulta seu próprio saldo",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663600000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_balance_02",
+      "parentId": "fld_balance",
+      "modified": 1704663599000,
+      "created": 1704663599000,
+      "url": "{{ _.base_url }}/transactions/balance/3",
+      "name": "User 2 - Check Own Balance",
+      "description": "Maria consulta seu próprio saldo",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user2_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663599000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_balance_03",
+      "parentId": "fld_balance",
+      "modified": 1704663598000,
+      "created": 1704663598000,
+      "url": "{{ _.base_url }}/transactions/balance/2",
+      "name": "Admin - Check Any User Balance",
+      "description": "Admin consulta saldo de qualquer usuário",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.admin_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663598000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_balance_04",
+      "parentId": "fld_balance",
+      "modified": 1704663597000,
+      "created": 1704663597000,
       "url": "{{ _.base_url }}/transactions/add-balance",
       "name": "Admin - Add Balance to User 1",
-      "description": "",
+      "description": "Adiciona R$ 15.000 ao João Silva",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
@@ -344,7 +792,7 @@
         }
       ],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663597000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -355,13 +803,48 @@
       "_type": "request"
     },
     {
-      "_id": "req_13",
+      "_id": "req_balance_05",
+      "parentId": "fld_balance",
+      "modified": 1704663596000,
+      "created": 1704663596000,
+      "url": "{{ _.base_url }}/transactions/add-balance",
+      "name": "Admin - Add Balance to User 2",
+      "description": "Adiciona R$ 8.000 à Maria Santos",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"user_id\": 3,\n  \"amount\": 8000.00,\n  \"description\": \"Saldo inicial - Promoção de cadastro\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.admin_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663596000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_purchases_01",
       "parentId": "fld_purchases",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663600000,
+      "created": 1704663600000,
       "url": "{{ _.base_url }}/transactions/purchase",
       "name": "User 1 - Buy Smartphone",
-      "description": "",
+      "description": "João compra um smartphone",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
@@ -379,7 +862,526 @@
         }
       ],
       "authentication": {},
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663600000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_purchases_02",
+      "parentId": "fld_purchases",
+      "modified": 1704663599000,
+      "created": 1704663599000,
+      "url": "{{ _.base_url }}/transactions/purchase",
+      "name": "User 2 - Buy Notebook",
+      "description": "Maria compra um notebook",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"items\": [\n    {\n      \"product_id\": 2,\n      \"quantity\": 1\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user2_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663599000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_purchases_03",
+      "parentId": "fld_purchases",
+      "modified": 1704663598000,
+      "created": 1704663598000,
+      "url": "{{ _.base_url }}/transactions/purchase",
+      "name": "User 1 - Buy Multiple Items",
+      "description": "João compra múltiplos produtos",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"items\": [\n    {\n      \"product_id\": 2,\n      \"quantity\": 1\n    },\n    {\n      \"product_id\": 3,\n      \"quantity\": 1\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663598000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_purchases_04",
+      "parentId": "fld_purchases",
+      "modified": 1704663597000,
+      "created": 1704663597000,
+      "url": "{{ _.base_url }}/transactions/orders/2",
+      "name": "User 1 - Get Own Orders",
+      "description": "João consulta seus próprios pedidos",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663597000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_purchases_05",
+      "parentId": "fld_purchases",
+      "modified": 1704663596000,
+      "created": 1704663596000,
+      "url": "{{ _.base_url }}/transactions/orders/3",
+      "name": "User 2 - Get Own Orders",
+      "description": "Maria consulta seus próprios pedidos",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user2_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663596000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_purchases_06",
+      "parentId": "fld_purchases",
+      "modified": 1704663595000,
+      "created": 1704663595000,
+      "url": "{{ _.base_url }}/transactions/orders/2",
+      "name": "Admin - Get Any User Orders",
+      "description": "Admin consulta pedidos de qualquer usuário",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.admin_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663595000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_transactions_01",
+      "parentId": "fld_transactions",
+      "modified": 1704663600000,
+      "created": 1704663600000,
+      "url": "{{ _.base_url }}/transactions/transactions/2",
+      "name": "User 1 - Get Own Transactions",
+      "description": "João consulta seu histórico de transações",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663600000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_transactions_02",
+      "parentId": "fld_transactions",
+      "modified": 1704663599000,
+      "created": 1704663599000,
+      "url": "{{ _.base_url }}/transactions/transactions/3",
+      "name": "User 2 - Get Own Transactions",
+      "description": "Maria consulta seu histórico de transações",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user2_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663599000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_transactions_03",
+      "parentId": "fld_transactions",
+      "modified": 1704663598000,
+      "created": 1704663598000,
+      "url": "{{ _.base_url }}/transactions/transactions/2",
+      "name": "Admin - Get Any User Transactions",
+      "description": "Admin consulta histórico de qualquer usuário",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.admin_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663598000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_errors_01",
+      "parentId": "fld_errors",
+      "modified": 1704663600000,
+      "created": 1704663600000,
+      "url": "{{ _.base_url }}/transactions/purchase",
+      "name": "❌ Purchase - Insufficient Balance",
+      "description": "Tentativa de compra com saldo insuficiente",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"items\": [\n    {\n      \"product_id\": 3,\n      \"quantity\": 5\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user2_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663600000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_errors_02",
+      "parentId": "fld_errors",
+      "modified": 1704663599000,
+      "created": 1704663599000,
+      "url": "{{ _.base_url }}/transactions/purchase",
+      "name": "❌ Purchase - Insufficient Stock",
+      "description": "Tentativa de compra com estoque insuficiente",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 100\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663599000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_errors_03",
+      "parentId": "fld_errors",
+      "modified": 1704663598000,
+      "created": 1704663598000,
+      "url": "{{ _.base_url }}/transactions/purchase",
+      "name": "❌ Purchase - Product Not Found",
+      "description": "Tentativa de compra de produto inexistente",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"items\": [\n    {\n      \"product_id\": 999,\n      \"quantity\": 1\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663598000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_auth_errors_01",
+      "parentId": "fld_auth_errors",
+      "modified": 1704663600000,
+      "created": 1704663600000,
+      "url": "{{ _.base_url }}/users",
+      "name": "❌ User tries to list all users (403)",
+      "description": "Usuário comum tenta listar todos os usuários",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663600000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_auth_errors_02",
+      "parentId": "fld_auth_errors",
+      "modified": 1704663599000,
+      "created": 1704663599000,
+      "url": "{{ _.base_url }}/products",
+      "name": "❌ User tries to create product (403)",
+      "description": "Usuário comum tenta criar produto",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Unauthorized Product\",\n  \"price\": 100.00,\n  \"stock_quantity\": 10\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663599000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_auth_errors_03",
+      "parentId": "fld_auth_errors",
+      "modified": 1704663598000,
+      "created": 1704663598000,
+      "url": "{{ _.base_url }}/transactions/balance/3",
+      "name": "❌ User tries to access other user's balance (403)",
+      "description": "Usuário tenta acessar saldo de outro usuário",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.user_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663598000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_unauth_01",
+      "parentId": "fld_unauth",
+      "modified": 1704663600000,
+      "created": 1704663600000,
+      "url": "{{ _.base_url }}/users",
+      "name": "❌ No token - List users (401)",
+      "description": "Tentativa sem token de autenticação",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1704663600000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_unauth_02",
+      "parentId": "fld_unauth",
+      "modified": 1704663599000,
+      "created": 1704663599000,
+      "url": "{{ _.base_url }}/products",
+      "name": "❌ No token - Create product (401)",
+      "description": "Tentativa de criar produto sem token",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Unauthorized Product\",\n  \"price\": 100.00\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663599000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_unauth_03",
+      "parentId": "fld_unauth",
+      "modified": 1704663598000,
+      "created": 1704663598000,
+      "url": "{{ _.base_url }}/transactions/purchase",
+      "name": "❌ No token - Make purchase (401)",
+      "description": "Tentativa de compra sem token",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"items\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 1\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1704663598000,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -392,80 +1394,140 @@
     {
       "_id": "fld_setup",
       "parentId": "wrk_main",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663600000,
+      "created": 1704663600000,
       "name": "🔧 Database Setup",
       "description": "",
       "environment": {},
       "environmentPropertyOrder": null,
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663600000,
       "_type": "request_group"
     },
     {
       "_id": "fld_auth",
       "parentId": "wrk_main",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663599000,
+      "created": 1704663599000,
       "name": "🔐 Authentication",
       "description": "",
       "environment": {},
       "environmentPropertyOrder": null,
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663599000,
       "_type": "request_group"
     },
     {
       "_id": "fld_users",
       "parentId": "wrk_main",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663598000,
+      "created": 1704663598000,
       "name": "👥 User Management",
       "description": "",
       "environment": {},
       "environmentPropertyOrder": null,
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663598000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_categories",
+      "parentId": "wrk_main",
+      "modified": 1704663597000,
+      "created": 1704663597000,
+      "name": "🏷️ Categories",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1704663597000,
       "_type": "request_group"
     },
     {
       "_id": "fld_products",
       "parentId": "wrk_main",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663596000,
+      "created": 1704663596000,
       "name": "📦 Products",
       "description": "",
       "environment": {},
       "environmentPropertyOrder": null,
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663596000,
       "_type": "request_group"
     },
     {
       "_id": "fld_balance",
       "parentId": "wrk_main",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663595000,
+      "created": 1704663595000,
       "name": "💰 Balance Management",
       "description": "",
       "environment": {},
       "environmentPropertyOrder": null,
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663595000,
       "_type": "request_group"
     },
     {
       "_id": "fld_purchases",
       "parentId": "wrk_main",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663594000,
+      "created": 1704663594000,
       "name": "🛒 Purchases",
       "description": "",
       "environment": {},
       "environmentPropertyOrder": null,
-      "metaSortKey": -1641234567890,
+      "metaSortKey": -1704663594000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_transactions",
+      "parentId": "wrk_main",
+      "modified": 1704663593000,
+      "created": 1704663593000,
+      "name": "📊 Transaction History",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1704663593000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_errors",
+      "parentId": "wrk_main",
+      "modified": 1704663592000,
+      "created": 1704663592000,
+      "name": "❌ Error Scenarios",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1704663592000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_auth_errors",
+      "parentId": "wrk_main",
+      "modified": 1704663591000,
+      "created": 1704663591000,
+      "name": "🔒 Authorization Tests",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1704663591000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_unauth",
+      "parentId": "wrk_main",
+      "modified": 1704663590000,
+      "created": 1704663590000,
+      "name": "🔓 Unauthorized Access Tests",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1704663590000,
       "_type": "request_group"
     },
     {
       "_id": "env_main",
       "parentId": "wrk_main",
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663600000,
+      "created": 1704663600000,
       "name": "Base Environment",
       "data": {
         "base_url": "http://localhost:3001",
@@ -483,14 +1545,14 @@
       },
       "color": null,
       "isPrivate": false,
-      "metaSortKey": 1641234567890,
+      "metaSortKey": 1704663600000,
       "_type": "environment"
     },
     {
       "_id": "wrk_main",
       "parentId": null,
-      "modified": 1641234567890,
-      "created": 1641234567890,
+      "modified": 1704663600000,
+      "created": 1704663600000,
       "name": "JsApiLesson3 - Complete API Testing",
       "description": "Collection completa para testar toda a API com autenticação, autorização, compras e validações",
       "scope": "collection",
