@@ -590,183 +590,119 @@
       "_type": "request"
     },
     {
-      "_id": "req_products_05",
-      "parentId": "fld_products",
-      "modified": 1704663596000,
-      "created": 1704663596000,
-      "url": "{{ _.base_url }}/products/1",
-      "name": "Get Product Details (Public)",
-      "description": "Detalhes do produto (público)",
-      "method": "GET",
-      "body": {},
-      "parameters": [],
-      "headers": [],
-      "authentication": {},
-      "metaSortKey": -1704663596000,
-      "isPrivate": false,
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "req_products_06",
-      "parentId": "fld_products",
-      "modified": 1704663595000,
-      "created": 1704663595000,
-      "url": "{{ _.base_url }}/products/search",
-      "name": "Search Products (Public)",
-      "description": "Busca produtos com filtros",
-      "method": "GET",
-      "body": {},
-      "parameters": [
-        {
-          "name": "name",
-          "value": "smartphone"
+        "_id": "req_products_05",
+        "parentId": "fld_products",
+        "modified": 1704663596000,
+        "created": 1704663596000,
+        "url": "{{ _.base_url }}/products/1",
+        "name": "Get Product Details (Public)",
+        "description": "Detalhes do produto (público)",
+        "method": "GET",
+        "body": {},
+        "parameters": [],
+        "headers": [],
+        "authentication": {},
+        "metaSortKey": -1704663596000,
+        "isPrivate": false,
+        "settingStoreCookies": true,
+        "settingSendCookies": true,
+        "settingDisableRenderRequestBody": false,
+        "settingEncodeUrl": true,
+        "settingRebuildPath": true,
+        "settingFollowRedirects": "global",
+        "_type": "request"
         },
         {
-          "name": "min_price",
-          "value": "1000"
+        "_id": "req_balance_01",
+        "parentId": "fld_balance",
+        "modified": 1704663600000,
+        "created": 1704663600000,
+        "url": "{{ _.base_url }}/transactions/add-balance",
+        "name": "Admin - Add Balance to User 1",
+        "description": "Adiciona R$ 15.000 ao João Silva",
+        "method": "POST",
+        "body": {
+            "mimeType": "application/json",
+            "text": "{\n  \"user_id\": 2,\n  \"amount\": 15000.00,\n  \"description\": \"Saldo inicial - Bônus de boas-vindas\"\n}"
+        },
+        "parameters": [],
+        "headers": [
+            {
+            "name": "Authorization",
+            "value": "Bearer {{ _.admin_token }}"
+            },
+            {
+            "name": "Content-Type",
+            "value": "application/json"
+            }
+        ],
+        "authentication": {},
+        "metaSortKey": -1704663600000,
+        "isPrivate": false,
+        "settingStoreCookies": true,
+        "settingSendCookies": true,
+        "settingDisableRenderRequestBody": false,
+        "settingEncodeUrl": true,
+        "settingRebuildPath": true,
+        "settingFollowRedirects": "global",
+        "_type": "request"
         },
         {
-          "name": "max_price",
-          "value": "5000"
-        }
-      ],
-      "headers": [],
-      "authentication": {},
-      "metaSortKey": -1704663595000,
-      "isPrivate": false,
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "req_products_07",
-      "parentId": "fld_products",
-      "modified": 1704663594000,
-      "created": 1704663594000,
-      "url": "{{ _.base_url }}/products/1",
-      "name": "Admin - Update Product",
-      "description": "Atualiza produto existente",
-      "method": "PUT",
-      "body": {
-        "mimeType": "application/json",
-        "text": "{\n  \"name\": \"Smartphone Samsung Galaxy S24 Ultra - Atualizado\",\n  \"description\": \"Smartphone premium com câmera de 200MP, S Pen e 5G - Versão atualizada\",\n  \"price\": 4200.00,\n  \"stock_quantity\": 15\n}"
-      },
-      "parameters": [],
-      "headers": [
-        {
-          "name": "Authorization",
-          "value": "Bearer {{ _.admin_token }}"
+        "_id": "req_balance_02",
+        "parentId": "fld_balance",
+        "modified": 1704663599000,
+        "created": 1704663599000,
+        "url": "{{ _.base_url }}/transactions/balance/2",
+        "name": "User 1 - Check Own Balance",
+        "description": "João consulta seu saldo",
+        "method": "GET",
+        "body": {},
+        "parameters": [],
+        "headers": [
+            {
+            "name": "Authorization",
+            "value": "Bearer {{ _.user_token }}"
+            }
+        ],
+        "authentication": {},
+        "metaSortKey": -1704663599000,
+        "isPrivate": false,
+        "settingStoreCookies": true,
+        "settingSendCookies": true,
+        "settingDisableRenderRequestBody": false,
+        "settingEncodeUrl": true,
+        "settingRebuildPath": true,
+        "settingFollowRedirects": "global",
+        "_type": "request"
         },
         {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
-      "authentication": {},
-      "metaSortKey": -1704663594000,
-      "isPrivate": false,
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "req_balance_01",
-      "parentId": "fld_balance",
-      "modified": 1704663600000,
-      "created": 1704663600000,
-      "url": "{{ _.base_url }}/transactions/balance/2",
-      "name": "User 1 - Check Own Balance",
-      "description": "João consulta seu próprio saldo",
-      "method": "GET",
-      "body": {},
-      "parameters": [],
-      "headers": [
-        {
-          "name": "Authorization",
-          "value": "Bearer {{ _.user_token }}"
-        }
-      ],
-      "authentication": {},
-      "metaSortKey": -1704663600000,
-      "isPrivate": false,
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "req_balance_02",
-      "parentId": "fld_balance",
-      "modified": 1704663599000,
-      "created": 1704663599000,
-      "url": "{{ _.base_url }}/transactions/balance/3",
-      "name": "User 2 - Check Own Balance",
-      "description": "Maria consulta seu próprio saldo",
-      "method": "GET",
-      "body": {},
-      "parameters": [],
-      "headers": [
-        {
-          "name": "Authorization",
-          "value": "Bearer {{ _.user2_token }}"
-        }
-      ],
-      "authentication": {},
-      "metaSortKey": -1704663599000,
-      "isPrivate": false,
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "req_balance_03",
-      "parentId": "fld_balance",
-      "modified": 1704663598000,
-      "created": 1704663598000,
-      "url": "{{ _.base_url }}/transactions/balance/2",
-      "name": "Admin - Check Any User Balance",
-      "description": "Admin consulta saldo de qualquer usuário",
-      "method": "GET",
-      "body": {},
-      "parameters": [],
-      "headers": [
-        {
-          "name": "Authorization",
-          "value": "Bearer {{ _.admin_token }}"
-        }
-      ],
-      "authentication": {},
-      "metaSortKey": -1704663598000,
-      "isPrivate": false,
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
+        "_id": "req_balance_03",
+        "parentId": "fld_balance",
+        "modified": 1704663598000,
+        "created": 1704663598000,
+        "url": "{{ _.base_url }}/transactions/transactions/2",
+        "name": "User 1 - Check Transaction History",
+        "description": "João consulta histórico de transações",
+        "method": "GET",
+        "body": {},
+        "parameters": [],
+        "headers": [
+            {
+            "name": "Authorization",
+            "value": "Bearer {{ _.user_token }}"
+            }
+        ],
+        "authentication": {},
+        "metaSortKey": -1704663598000,
+        "isPrivate": false,
+        "settingStoreCookies": true,
+        "settingSendCookies": true,
+        "settingDisableRenderRequestBody": false,
+        "settingEncodeUrl": true,
+        "settingRebuildPath": true,
+        "settingFollowRedirects": "global",
+        "_type": "request"
+        },
     {
       "_id": "req_balance_04",
       "parentId": "fld_balance",

@@ -74,14 +74,13 @@ export const validateProduct = (req: Request, res: Response, next: NextFunction)
 
 // Middleware para validar ID nos parâmetros
 export const validateId = (req: Request, res: Response, next: NextFunction): void => {
-  const { id } = req.params;
-
-  if (!id || isNaN(parseInt(id))) {
-    res.status(400).json({
-      message: 'Invalid ID parameter'
-    });
+  const { user_id } = req.params;
+  
+  // Verificar se o ID existe e é um número válido
+  if (!user_id || isNaN(parseInt(user_id))) {
+    res.status(400).json({ message: 'Invalid ID parameter' });
     return;
   }
-
+  
   next();
 };
