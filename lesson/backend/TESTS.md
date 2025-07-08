@@ -33,16 +33,19 @@ src/
 ## Scripts Disponíveis
 
 ### Executar todos os testes
+
 ```bash
 npm test
 ```
 
 ### Executar testes em modo watch (observação)
+
 ```bash
 npm run test:watch
 ```
 
 ### Executar testes com coverage (cobertura)
+
 ```bash
 npm run test:coverage
 ```
@@ -50,6 +53,7 @@ npm run test:coverage
 ## Cobertura dos Testes
 
 ### AuthController
+
 - ✅ Login com credenciais válidas
 - ✅ Login com credenciais inválidas
 - ✅ Login com conta inativa
@@ -59,6 +63,7 @@ npm run test:coverage
 - ✅ Tratamento de erros
 
 ### UserController
+
 - ✅ Listar todos os usuários
 - ✅ Buscar usuário por ID
 - ✅ Criar novo usuário
@@ -68,6 +73,7 @@ npm run test:coverage
 - ✅ Tratamento de erros
 
 ### ProductController
+
 - ✅ Listar todos os produtos
 - ✅ Buscar produto por ID
 - ✅ Criar novo produto
@@ -78,6 +84,7 @@ npm run test:coverage
 - ✅ Tratamento de erros
 
 ### CategoryController
+
 - ✅ Listar todas as categorias
 - ✅ Buscar categoria por ID
 - ✅ Criar nova categoria
@@ -88,6 +95,7 @@ npm run test:coverage
 - ✅ Tratamento de erros
 
 ### TransactionController
+
 - ✅ Adicionar saldo ao usuário
 - ✅ Consultar saldo do usuário
 - ✅ Histórico de transações
@@ -95,6 +103,7 @@ npm run test:coverage
 - ✅ Tratamento de erros
 
 ### PurchaseController
+
 - ✅ Realizar compra com sucesso
 - ✅ Validação de itens
 - ✅ Verificação de estoque
@@ -106,6 +115,7 @@ npm run test:coverage
 ## Configuração dos Mocks
 
 O arquivo `setup.ts` configura os mocks para:
+
 - **Database Pool**: Simula conexões com PostgreSQL
 - **bcryptjs**: Simula hash e comparação de senhas
 - **jsonwebtoken**: Simula geração e verificação de tokens
@@ -113,11 +123,13 @@ O arquivo `setup.ts` configura os mocks para:
 ## Executando os Testes
 
 1. **Instalar dependências**:
+
    ```bash
    npm install
    ```
 
 2. **Executar todos os testes**:
+
    ```bash
    npm test
    ```
@@ -130,6 +142,7 @@ O arquivo `setup.ts` configura os mocks para:
 ## Interpretando os Resultados
 
 ### Resultado Esperado
+
 ```
 Test Suites: 6 passed, 6 total
 Tests:       XX passed, XX total
@@ -138,7 +151,9 @@ Time:        X.XXXs
 ```
 
 ### Coverage Report
+
 O relatório de cobertura mostra:
+
 - **Statements**: Linhas de código executadas
 - **Branches**: Caminhos condicionais testados
 - **Functions**: Funções testadas
@@ -165,8 +180,9 @@ Para adicionar novos testes:
    - **Assert**: Verificar resultado
 
 ### Exemplo de Estrutura
+
 ```typescript
-describe('NomeController', () => {
+describe("NomeController", () => {
   let mockReq: any;
   let mockRes: any;
 
@@ -174,8 +190,8 @@ describe('NomeController', () => {
     // Setup dos mocks
   });
 
-  describe('metodo', () => {
-    it('should do something successfully', async () => {
+  describe("metodo", () => {
+    it("should do something successfully", async () => {
       // Arrange
       // Act
       // Assert

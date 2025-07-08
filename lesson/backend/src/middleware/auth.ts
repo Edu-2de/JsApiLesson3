@@ -53,7 +53,7 @@ export const requireAdmin = (req: AuthRequest, res: Response, next: NextFunction
 
 export const requireOwnerOrAdmin = (req: AuthRequest, res: Response, next: NextFunction): void => {
   const userFromToken = req.user; // Vem do authenticateToken
-  const { user_id } = req.params;
+  const { id } = req.params;
   
   // Admin pode acessar qualquer usuário
   if (userFromToken?.role === 'admin') {
@@ -62,7 +62,7 @@ export const requireOwnerOrAdmin = (req: AuthRequest, res: Response, next: NextF
   }
   
   // Usuário comum só pode acessar próprios dados
-  if (userFromToken && userFromToken.id === parseInt(user_id)) {
+  if (userFromToken && userFromToken.id === parseInt(id)) {
     next();
     return;
   }

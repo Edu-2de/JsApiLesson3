@@ -6,7 +6,7 @@ Foram criados testes automatizados completos para todo o sistema backend da API.
 
 ```
 ✅ Test Suites: 6 passed, 6 total
-✅ Tests: 85 passed, 85 total  
+✅ Tests: 85 passed, 85 total
 ✅ Snapshots: 0 total
 ⏱️ Time: ~6-16 segundos
 ```
@@ -14,6 +14,7 @@ Foram criados testes automatizados completos para todo o sistema backend da API.
 ## 📁 Arquivos de Teste Criados
 
 ### 1. **Setup e Configuração**
+
 - `src/__tests__/setup.ts` - Configuração global dos mocks
 - `jest.config.js` - Configuração do Jest
 - Scripts no `package.json` para execução dos testes
@@ -21,8 +22,9 @@ Foram criados testes automatizados completos para todo o sistema backend da API.
 ### 2. **Testes dos Controllers**
 
 #### 🔐 AuthController (`authController.test.ts`) - 14 testes
+
 - ✅ Login com credenciais válidas
-- ✅ Login com credenciais inválidas  
+- ✅ Login com credenciais inválidas
 - ✅ Login com conta inativa
 - ✅ Validação de senha incorreta
 - ✅ Registro de novo usuário
@@ -32,6 +34,7 @@ Foram criados testes automatizados completos para todo o sistema backend da API.
 - ✅ Tratamento de erros
 
 #### 👥 UserController (`userController.test.ts`) - 13 testes
+
 - ✅ Listar todos os usuários
 - ✅ Buscar usuário por ID
 - ✅ Criar novo usuário
@@ -43,10 +46,11 @@ Foram criados testes automatizados completos para todo o sistema backend da API.
 - ✅ Tratamento de erros
 
 #### 🛍️ ProductController (`productController.test.ts`) - 19 testes
+
 - ✅ Listar todos os produtos
 - ✅ Buscar produto por ID
 - ✅ Criar novo produto
-- ✅ Atualizar produto existente  
+- ✅ Atualizar produto existente
 - ✅ Deletar produto
 - ✅ Buscar produtos por filtros
 - ✅ Validações de preço
@@ -55,6 +59,7 @@ Foram criados testes automatizados completos para todo o sistema backend da API.
 - ✅ Tratamento de erros
 
 #### 📂 CategoryController (`categoryController.test.ts`) - 15 testes
+
 - ✅ Listar todas as categorias
 - ✅ Buscar categoria por ID
 - ✅ Criar nova categoria
@@ -66,6 +71,7 @@ Foram criados testes automatizados completos para todo o sistema backend da API.
 - ✅ Tratamento de erros
 
 #### 💰 TransactionController (`transactionController.test.ts`) - 10 testes
+
 - ✅ Adicionar saldo ao usuário
 - ✅ Consultar saldo do usuário
 - ✅ Histórico de transações
@@ -76,6 +82,7 @@ Foram criados testes automatizados completos para todo o sistema backend da API.
 - ✅ Tratamento de erros
 
 #### 🛒 PurchaseController (`purchaseController.test.ts`) - 14 testes
+
 - ✅ Realizar compra com sucesso
 - ✅ Validação de itens
 - ✅ Verificação de estoque
@@ -90,14 +97,16 @@ Foram criados testes automatizados completos para todo o sistema backend da API.
 ## 📈 Cobertura de Código
 
 ### Controllers: **99% de cobertura!**
+
 - AuthController: 94.64% statements
 - CategoryController: 100% statements
-- ProductController: 100% statements  
+- ProductController: 100% statements
 - PurchaseController: 100% statements
 - TransactionController: 100% statements
 - UserController: 100% statements
 
 ### Cobertura Geral: **60.12%**
+
 - Controllers (testados): 99%
 - Middleware (não testados): 0%
 - Routes (não testados): 0%
@@ -106,16 +115,19 @@ Foram criados testes automatizados completos para todo o sistema backend da API.
 ## 🚀 Como Executar os Testes
 
 ### Executar todos os testes
+
 ```bash
 npm test
 ```
 
 ### Executar com observação (watch mode)
+
 ```bash
 npm run test:watch
 ```
 
 ### Executar com relatório de cobertura
+
 ```bash
 npm run test:coverage
 ```
@@ -130,12 +142,14 @@ npm run test:coverage
 ## ✨ Funcionalidades Testadas
 
 ### 🔍 Casos de Sucesso
+
 - Todos os endpoints funcionando corretamente
 - Validações de entrada
 - Respostas adequadas
 - Operações CRUD completas
 
 ### ⚠️ Casos de Erro
+
 - Dados inválidos
 - Recursos não encontrados
 - Falhas de autenticação
@@ -143,12 +157,14 @@ npm run test:coverage
 - Validações de negócio
 
 ### 🔒 Segurança
+
 - Autenticação JWT
 - Hash de senhas
 - Validação de permissões
 - Sanitização de dados
 
 ### 💾 Integridade de Dados
+
 - Transações atômicas
 - Rollback em caso de erro
 - Validações de relacionamento
@@ -165,9 +181,10 @@ Para aumentar ainda mais a cobertura, você pode criar testes para:
 
 ## 🎉 Conclusão
 
-O sistema agora possui **85 testes automatizados** cobrindo **99% dos controllers**! 
+O sistema agora possui **85 testes automatizados** cobrindo **99% dos controllers**!
 
 Todos os cenários principais estão testados:
+
 - ✅ Funcionalidades básicas
 - ✅ Validações de entrada
 - ✅ Casos de erro
@@ -175,6 +192,7 @@ Todos os cenários principais estão testados:
 - ✅ Integridade de dados
 
 Os testes garantem que:
+
 - O código funciona conforme esperado
 - Mudanças futuras não quebrem funcionalidades existentes
 - A qualidade do código seja mantida
